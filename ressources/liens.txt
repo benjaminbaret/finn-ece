@@ -1,0 +1,6 @@
+Architecture MVC : 
+https://fr.wikipedia.org/wiki/Mod%C3%A8le-vue-contr%C3%B4leur
+https://openclassrooms.com/fr/courses/4670706-adoptez-une-architecture-mvc-en-php/4678736-comment-fonctionne-une-architecture-mvc
+
+Démo Penguin Thin : 
+https://www.youtube.com/watch?v=H8I29P8eiio

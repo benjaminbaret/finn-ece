@@ -5,9 +5,6 @@
  */
 package finnece;
 
-import java.io.*;
-import java.util.Scanner;
-
 /**
  *
  * @author theoc
@@ -15,14 +12,21 @@ import java.util.Scanner;
 public class FinnEce {
 
     public static void main(String[] args) {
+        boolean end = false;
+        Plateau map = new Plateau();
+        map.loadMap();
+        EceMan Personnage = new EceMan("ECEMAN", 1, map.getXPerso(), map.getYPerso());
 
-        Plateau N1 = new Plateau();
-        N1.chargerMap();
-        N1.afficherMap();
-        N1.modifierMap();
-        N1.afficherMap();
-
-        N1.sauvegarderMap();
+        while (!end) {
+            map.afficherMap();
+            map.modifierMap(Personnage);
+            if (Personnage.getXPerso() == map.getXObjectif() && Personnage.getYPerso() == map.getYObjectif()) {
+                System.out.println("enfin bravo couillon");
+                end = true;
+            }
+        }
+        map.afficherMap();
+        map.sauvegarderMap();
 
     }
 

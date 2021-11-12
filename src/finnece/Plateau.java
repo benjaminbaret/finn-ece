@@ -5,6 +5,7 @@
  */
 package finnece;
 
+//java.io.* --> SAUVEGARDE
 import java.io.*;
 import java.util.Scanner;
 
@@ -14,7 +15,106 @@ public class Plateau {
     private String Level;
     private int lvl = 1;
 
-    void chargerMap() {
+    int getXPerso() {
+        int x_pingouin = 0;
+        for (int i = 0; i < plateauJeux.length; i++) {
+            for (int j = 0; j < plateauJeux.length; j++) {
+                if ("P".equals(plateauJeux[i][j])) {
+                    x_pingouin = i;
+                }
+            }
+        }
+        return x_pingouin;
+    }
+
+    int getYPerso() {
+        int y_pingouin = 0;
+        for (int i = 0; i < plateauJeux.length; i++) {
+            for (int j = 0; j < plateauJeux.length; j++) {
+                if ("P".equals(plateauJeux[i][j])) {
+                    y_pingouin = j;
+                }
+            }
+        }
+        return y_pingouin;
+    }
+
+    int getXObjectif() {
+        int x_objectif = 0;
+        for (int i = 0; i < plateauJeux.length; i++) {
+            for (int j = 0; j < plateauJeux.length; j++) {
+                if ("O".equals(plateauJeux[i][j])) {
+                    x_objectif = i;
+                }
+            }
+        }
+        return x_objectif;
+    }
+
+    int getYObjectif() {
+        int y_objectif = 0;
+        for (int i = 0; i < plateauJeux.length; i++) {
+            for (int j = 0; j < plateauJeux.length; j++) {
+                if ("O".equals(plateauJeux[i][j])) {
+                    y_objectif = j;
+                }
+            }
+        }
+        return y_objectif;
+    }
+
+    void afficherMap() {
+        for (int i = 0; i < plateauJeux.length; i++) {
+            for (int j = 0; j < plateauJeux.length; j++) {
+                System.out.print(plateauJeux[i][j] + " ");
+            }
+            System.out.println(" ");
+
+        }
+    }
+
+    void modifierMap(EceMan Personnage) {
+
+        Scanner clavier = null;
+        clavier = new Scanner(System.in);
+
+        char toucheDeplacement;
+
+        int lastposX = Personnage.getXPerso();
+        int lastposY = Personnage.getYPerso();
+
+        System.out.print("Déplacement : ");
+        toucheDeplacement = clavier.next().charAt(0);
+        System.out.println(toucheDeplacement);
+        Personnage.deplacerPersonnage(toucheDeplacement);
+
+        //MAJ position Eceman
+        plateauJeux[Personnage.getXPerso()][Personnage.getYPerso()] = Personnage.getSymbole();
+        plateauJeux[lastposX][lastposY] = "G";
+
+    }
+
+    // SAAUVEGARDE & CHARGEMENT
+    void sauvegarderMap() {
+        try {
+            FileWriter fileSave = new FileWriter("./Sauvegarde/Save.txt");
+            BufferedWriter writter = new BufferedWriter(fileSave);
+
+            for (int i = 0; i < plateauJeux.length; i++) {
+                for (int j = 0; j < plateauJeux.length; j++) {
+                    writter.write(plateauJeux[i][j] + " ");
+                }
+                writter.newLine();
+            }
+
+            writter.close();
+
+        } catch (IOException e) {
+            System.err.println("Error: " + e.getMessage());
+        }
+    }
+
+    void loadMap() {
 
         String lignemap = new String();
 
@@ -43,81 +143,6 @@ public class Plateau {
             System.out.println("Le fichier n'a pas pu être lu");
             System.out.println(" ");
 
-        }
-    }
-
-    void afficherMap() {
-        for (int i = 0; i < plateauJeux.length; i++) {
-            for (int j = 0; j < plateauJeux.length; j++) {
-                System.out.print(plateauJeux[i][j] + " ");
-            }
-            System.out.println(" ");
-
-        }
-    }
-
-    void modifierMap() {
-
-        Scanner clavier = null;
-        clavier = new Scanner(System.in);
-
-        int x_pingouin = 0, y_pingouin = 0;
-        char toucheDeplacement;
-
-        for (int i = 0; i < plateauJeux.length; i++) {
-            for (int j = 0; j < plateauJeux.length; j++) {
-                if (plateauJeux[i][j] == "P") {
-                    x_pingouin = i + 1;
-                    y_pingouin = j + 1;
-                }
-            }
-        }
-
-        //PROBLEME ICI
-        System.out.print("Déplacement : ");
-        toucheDeplacement = clavier.next().charAt(0);
-        System.out.println(toucheDeplacement);
-
-        while ((toucheDeplacement != 122) || (toucheDeplacement != 113) || (toucheDeplacement != 115) || (toucheDeplacement != 100)) {
-            System.out.print("Déplacement (z vers le haut; q vers la gauche, s vers le baas, d vers la droite) : ");
-            toucheDeplacement = clavier.next().charAt(0);
-        }
-
-        if (toucheDeplacement == 'z' && plateauJeux[x_pingouin][y_pingouin - 1] != "M") {
-
-            plateauJeux[x_pingouin][y_pingouin - 1] = "P";
-            plateauJeux[x_pingouin][y_pingouin] = "G";
-
-        } else if (toucheDeplacement == 'q' && plateauJeux[x_pingouin - 1][y_pingouin] != "M") {
-            plateauJeux[x_pingouin - 1][y_pingouin] = "P";
-            plateauJeux[x_pingouin][y_pingouin] = "G";
-        } else if (toucheDeplacement == 's' && plateauJeux[x_pingouin][y_pingouin + 1] != "M") {
-            plateauJeux[x_pingouin][y_pingouin + 1] = "P";
-            plateauJeux[x_pingouin][y_pingouin] = "G";
-        } else if (toucheDeplacement == 'd' && plateauJeux[x_pingouin + 1][y_pingouin] != "M") {
-            plateauJeux[x_pingouin + 1][y_pingouin] = "P";
-            plateauJeux[x_pingouin][y_pingouin] = "G";
-        }
-        //FIN PROBLEME ICI
-
-    }
-
-    void sauvegarderMap() {
-        try {
-            FileWriter fileSave = new FileWriter("./Sauvegarde/Save.txt");
-            BufferedWriter writter = new BufferedWriter(fileSave);
-
-            for (int i = 0; i < plateauJeux.length; i++) {
-                for (int j = 0; j < plateauJeux.length; j++) {
-                    writter.write(plateauJeux[i][j] + " ");
-                }
-                writter.newLine();
-            }
-
-            writter.close();
-
-        } catch (IOException e) {
-            System.err.println("Error: " + e.getMessage());
         }
     }
 

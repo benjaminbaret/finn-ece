@@ -68,6 +68,14 @@ public class EceMan {
     public int getscore() {
         return this.score;
     }
+    
+    public void setXperso(int X){
+        this.x_eceman = X;
+    }
+    
+    public void setYperso(int Y){
+        this.y_eceman = Y;
+    }
 
     public boolean deplacerPersonnage(char direction) {
 

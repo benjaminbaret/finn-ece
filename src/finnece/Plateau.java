@@ -71,14 +71,26 @@ public class Plateau {
         System.out.println("Score : " + Personnage.getscore() + "                  Niveau : " + Personnage.getNiveau());
         for (int i = 0; i < lenght_plateau; i++) {
             for (int j = 0; j < width_plateau; j++) {
-                System.out.print(plateauJeux[i][j] + " ");
+
+                if ("G".equals(plateauJeux[i][j])) {
+                    System.out.print("\033[34m" + plateauJeux[i][j] + " ");
+                } else if ("P".equals(plateauJeux[i][j])) {
+                    System.out.print("\033[33m" + plateauJeux[i][j] + " ");
+                } else if ("X".equals(plateauJeux[i][j])) {
+                    System.out.print("\033[36m" + plateauJeux[i][j] + " ");
+                } else if ("O".equals(plateauJeux[i][j])) {
+                    System.out.print("\033[31m" + plateauJeux[i][j] + " ");
+                } else {
+                    System.out.print("\033[0m" + plateauJeux[i][j] + " ");
+                }
+
             }
             System.out.println(" ");
-
         }
+        System.out.print("\033[0m");
     }
 
-    void modifierMap(EceMan Personnage) {
+    public boolean modifierMap(EceMan Personnage) {
 
         Scanner clavier = null;
         clavier = new Scanner(System.in);
@@ -95,9 +107,25 @@ public class Plateau {
 
         //MAJ position Eceman
         if (validationTouche == true) {
-            plateauJeux[Personnage.getXPerso()][Personnage.getYPerso()] = Personnage.getSymbole();
-            plateauJeux[lastposX][lastposY] = "G";
+            if ("M".equals(plateauJeux[Personnage.getXPerso()][Personnage.getYPerso()])) {
+                Personnage.setXperso(lastposX);
+                Personnage.setYperso(lastposY);
+                System.out.println("Déplacement impossible");
+                return false;
+
+            } else if ("G".equals(plateauJeux[Personnage.getXPerso()][Personnage.getYPerso()])) {
+                plateauJeux[Personnage.getXPerso()][Personnage.getYPerso()] = Personnage.getSymbole();
+                plateauJeux[lastposX][lastposY] = "G";
+                return false;
+
+            } else if ("O".equals(plateauJeux[Personnage.getXPerso()][Personnage.getYPerso()])) {
+                plateauJeux[Personnage.getXPerso()][Personnage.getYPerso()] = Personnage.getSymbole();
+                plateauJeux[lastposX][lastposY] = "G";
+                System.out.println("Bravo niveau complété");
+                return true;
+            }
         }
+        return false;
     }
 
     // SAAUVEGARDE & CHARGEMENT

@@ -12,14 +12,15 @@ package finnece;
 public class FinnEce {
 
     public static void main(String[] args) {
+        boolean end = false;
         Plateau map = new Plateau();
         map.loadMap();
         EceMan Personnage = new EceMan("ECEMAN", 1, map.getXPerso(), map.getYPerso(), 0);
 
-        while ((Personnage.getXPerso() != map.getXObjectif()) && (Personnage.getYPerso() != map.getYObjectif())) {
+        while (!end) {
             map.afficherMap(Personnage);
-            map.modifierMap(Personnage);
-            
+            end = map.modifierMap(Personnage);
+
         }
         map.afficherMap(Personnage);
         map.sauvegarderMap();

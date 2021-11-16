@@ -14,34 +14,37 @@ public class EceMan {
     private String name_eceman;
     private String symbole;
     private int level_eceman;
+    private int score;
     private int x_eceman;
     private int y_eceman;
 
     public EceMan() {
 
         this.name_eceman = "";
-        level_eceman = 1;
-        x_eceman = 0;
-        y_eceman = 0;
-        symbole = "";
+        this.level_eceman = 1;
+        this.x_eceman = 0;
+        this.y_eceman = 0;
+        this.symbole = "";
+        this.score = 0;
     }
 
-    public EceMan(String name, int level, int x, int y) {
+    public EceMan(String name, int level, int x, int y, int score) {
 
         this.name_eceman = name;
-        level_eceman = level;
-        x_eceman = x;
-        y_eceman = y;
-        symbole = "P";
+        this.level_eceman = level;
+        this.x_eceman = x;
+        this.y_eceman = y;
+        this.symbole = "P";
+        this.score = score;
 
     }
 
-    // Getter
+// Getter
     public String getNom() {
 
         return this.name_eceman;
     }
-    
+
     public String getSymbole() {
 
         return this.symbole;
@@ -62,27 +65,32 @@ public class EceMan {
         return this.y_eceman;
     }
 
-    public void deplacerPersonnage(char direction) {
+    public int getscore() {
+        return this.score;
+    }
+
+    public boolean deplacerPersonnage(char direction) {
 
         switch (direction) {
             case 'z': //déplacement vers le haut
                 this.x_eceman--;
-                break;
+                return true;
 
             case 's': //déplacement vers le bas
                 this.x_eceman++;
-                break;
+                return true;
 
             case 'q': //déplacement vers la gauche
                 this.y_eceman--;
-                break;
+                return true;
 
             case 'd': //déplacement vers la droite
                 this.y_eceman++;
-                break;
+                return true;
 
             default:
-                System.out.println("Veuillez appuyer sur z pour aller vers le haut; s vers le bas ; q vers la gauche et d vers lz droite");
+                System.out.println("Veuillez réessayer ! \n Appuyer sur z pour aller vers le haut; s vers le bas ; q vers la gauche et d vers lz droite");
+                return false;
         }
     }
 }

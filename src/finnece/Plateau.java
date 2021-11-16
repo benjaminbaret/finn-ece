@@ -11,14 +11,16 @@ import java.util.Scanner;
 
 public class Plateau {
 
-    private String plateauJeux[][] = new String[10][10];
+    private int lenght_plateau = 15;
+    private int width_plateau = 19;
+    private String plateauJeux[][] = new String[lenght_plateau][width_plateau];
     private String Level;
     private int lvl = 1;
 
     int getXPerso() {
         int x_pingouin = 0;
-        for (int i = 0; i < plateauJeux.length; i++) {
-            for (int j = 0; j < plateauJeux.length; j++) {
+        for (int i = 0; i < lenght_plateau; i++) {
+            for (int j = 0; j < width_plateau; j++) {
                 if ("P".equals(plateauJeux[i][j])) {
                     x_pingouin = i;
                 }
@@ -29,8 +31,8 @@ public class Plateau {
 
     int getYPerso() {
         int y_pingouin = 0;
-        for (int i = 0; i < plateauJeux.length; i++) {
-            for (int j = 0; j < plateauJeux.length; j++) {
+        for (int i = 0; i < lenght_plateau; i++) {
+            for (int j = 0; j < width_plateau; j++) {
                 if ("P".equals(plateauJeux[i][j])) {
                     y_pingouin = j;
                 }
@@ -41,8 +43,8 @@ public class Plateau {
 
     int getXObjectif() {
         int x_objectif = 0;
-        for (int i = 0; i < plateauJeux.length; i++) {
-            for (int j = 0; j < plateauJeux.length; j++) {
+        for (int i = 0; i < lenght_plateau; i++) {
+            for (int j = 0; j < width_plateau; j++) {
                 if ("O".equals(plateauJeux[i][j])) {
                     x_objectif = i;
                 }
@@ -53,8 +55,8 @@ public class Plateau {
 
     int getYObjectif() {
         int y_objectif = 0;
-        for (int i = 0; i < plateauJeux.length; i++) {
-            for (int j = 0; j < plateauJeux.length; j++) {
+        for (int i = 0; i < lenght_plateau; i++) {
+            for (int j = 0; j < width_plateau; j++) {
                 if ("O".equals(plateauJeux[i][j])) {
                     y_objectif = j;
                 }
@@ -63,9 +65,12 @@ public class Plateau {
         return y_objectif;
     }
 
-    void afficherMap() {
-        for (int i = 0; i < plateauJeux.length; i++) {
-            for (int j = 0; j < plateauJeux.length; j++) {
+    void afficherMap(EceMan Personnage) {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+        System.out.println("Score : " + Personnage.getscore() + "                  Niveau : " + Personnage.getNiveau());
+        for (int i = 0; i < lenght_plateau; i++) {
+            for (int j = 0; j < width_plateau; j++) {
                 System.out.print(plateauJeux[i][j] + " ");
             }
             System.out.println(" ");
@@ -77,6 +82,7 @@ public class Plateau {
 
         Scanner clavier = null;
         clavier = new Scanner(System.in);
+        boolean validationTouche = false;
 
         char toucheDeplacement;
 
@@ -85,13 +91,13 @@ public class Plateau {
 
         System.out.print("Déplacement : ");
         toucheDeplacement = clavier.next().charAt(0);
-        System.out.println(toucheDeplacement);
-        Personnage.deplacerPersonnage(toucheDeplacement);
+        validationTouche = Personnage.deplacerPersonnage(toucheDeplacement);
 
         //MAJ position Eceman
-        plateauJeux[Personnage.getXPerso()][Personnage.getYPerso()] = Personnage.getSymbole();
-        plateauJeux[lastposX][lastposY] = "G";
-
+        if (validationTouche == true) {
+            plateauJeux[Personnage.getXPerso()][Personnage.getYPerso()] = Personnage.getSymbole();
+            plateauJeux[lastposX][lastposY] = "G";
+        }
     }
 
     // SAAUVEGARDE & CHARGEMENT
@@ -100,8 +106,8 @@ public class Plateau {
             FileWriter fileSave = new FileWriter("./Sauvegarde/Save.txt");
             BufferedWriter writter = new BufferedWriter(fileSave);
 
-            for (int i = 0; i < plateauJeux.length; i++) {
-                for (int j = 0; j < plateauJeux.length; j++) {
+            for (int i = 0; i < lenght_plateau; i++) {
+                for (int j = 0; j < width_plateau; j++) {
                     writter.write(plateauJeux[i][j] + " ");
                 }
                 writter.newLine();
@@ -130,10 +136,10 @@ public class Plateau {
             FileInputStream filemap = new FileInputStream(Level);
             Scanner scanner = new Scanner(filemap);
 
-            for (int i = 0; i < plateauJeux.length; i++) {
+            for (int i = 0; i < lenght_plateau; i++) {
                 lignemap = scanner.nextLine();
                 String tbtempo[] = lignemap.split(" ");
-                for (int j = 0; j < plateauJeux.length; j++) {
+                for (int j = 0; j < width_plateau; j++) {
                     plateauJeux[i][j] = tbtempo[j];
                 }
             }

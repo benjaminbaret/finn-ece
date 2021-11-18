@@ -68,37 +68,42 @@ public class EceMan {
     public int getscore() {
         return this.score;
     }
-    
-    public void setXperso(int X){
+
+    public void setXperso(int X) {
         this.x_eceman = X;
     }
-    
-    public void setYperso(int Y){
+
+    public void setYperso(int Y) {
         this.y_eceman = Y;
+    }
+
+    public void setScore() {
+        this.score++;
     }
 
     public boolean deplacerPersonnage(char direction) {
 
         switch (direction) {
-            case 'z': //déplacement vers le haut
+            case 'z': { //déplacement vers le haut
                 this.x_eceman--;
                 return true;
-
-            case 's': //déplacement vers le bas
+            }
+            case 's': { //déplacement vers le bas
                 this.x_eceman++;
                 return true;
-
-            case 'q': //déplacement vers la gauche
+            }
+            case 'q': {//déplacement vers la gauche
                 this.y_eceman--;
                 return true;
-
-            case 'd': //déplacement vers la droite
+            }
+            case 'd': { //déplacement vers la droite
                 this.y_eceman++;
                 return true;
-
-            default:
+            }
+            default: {
                 System.out.println("Veuillez réessayer ! \n Appuyer sur z pour aller vers le haut; s vers le bas ; q vers la gauche et d vers lz droite");
                 return false;
+            }
         }
     }
 }

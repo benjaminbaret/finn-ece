@@ -15,7 +15,6 @@ public class Plateau {
     private int width_plateau = 19;
     private String plateauJeux[][] = new String[lenght_plateau][width_plateau];
     private String Level;
-    private int lvl = 1;
 
     int getXPerso() {
         int x_pingouin = 0;
@@ -68,6 +67,7 @@ public class Plateau {
     void afficherMap(EceMan Personnage) {
         System.out.print("\033[H\033[2J");
         System.out.flush();
+        System.out.println("\n\n            Name : " + Personnage.getNom());
         System.out.println("Score : " + Personnage.getscore() + "                  Niveau : " + Personnage.getNiveau());
         for (int i = 0; i < lenght_plateau; i++) {
             for (int j = 0; j < width_plateau; j++) {
@@ -90,10 +90,8 @@ public class Plateau {
         System.out.print("\033[0m");
     }
 
-    public boolean modifierMap(EceMan Personnage) {
+    public boolean modifierMap(EceMan Personnage, Scanner clavier) {
 
-        Scanner clavier = null;
-        clavier = new Scanner(System.in);
         boolean validationTouche = false;
 
         char toucheDeplacement;
@@ -103,10 +101,14 @@ public class Plateau {
 
         System.out.print("Déplacement : ");
         toucheDeplacement = clavier.next().charAt(0);
+        if (toucheDeplacement == 'p') {
+            return true;
+        }
         validationTouche = Personnage.deplacerPersonnage(toucheDeplacement);
 
         //MAJ position Eceman
         if (validationTouche == true) {
+
             if ("M".equals(plateauJeux[Personnage.getXPerso()][Personnage.getYPerso()])) {
                 Personnage.setXperso(lastposX);
                 Personnage.setYperso(lastposY);
@@ -121,14 +123,14 @@ public class Plateau {
             } else if ("O".equals(plateauJeux[Personnage.getXPerso()][Personnage.getYPerso()])) {
                 plateauJeux[Personnage.getXPerso()][Personnage.getYPerso()] = Personnage.getSymbole();
                 plateauJeux[lastposX][lastposY] = "G";
-                System.out.println("Bravo niveau complété");
+                Personnage.setScore();
                 return true;
             }
         }
         return false;
     }
 
-    // SAAUVEGARDE & CHARGEMENT
+    // SAUVEGARDE & CHARGEMENT
     void sauvegarderMap() {
         try {
             FileWriter fileSave = new FileWriter("./Sauvegarde/Save.txt");
@@ -148,7 +150,7 @@ public class Plateau {
         }
     }
 
-    void loadMap() {
+    void loadMap(int lvl) {
 
         String lignemap = new String();
 
@@ -158,7 +160,7 @@ public class Plateau {
             } else if (lvl == 2) {
                 Level = "./Sauvegarde/level2.txt";
             } else {
-                Level = "./Sauvegarde/Save.txt";
+                Level = "./Sauvegarde/SaveMap.txt";
             }
 
             FileInputStream filemap = new FileInputStream(Level);

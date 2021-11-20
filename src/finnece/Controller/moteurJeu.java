@@ -3,19 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package finnece;
+package finnece.Controller;
+
+import finnece.Modele.EceMan;
+import finnece.Modele.Plateau;
+import finnece.Vue.AffichageConsole;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 /**
  *
- * @author theoc
+ * @author benja
  */
-import java.io.*;
-import java.util.Scanner;
-import java.util.ArrayList;
-import java.util.List;
-
-public class FinnEce {
-
+public class moteurJeu {
+    
     public static void main(String[] args) {
         boolean end = false;
         int choix = 0;
@@ -100,7 +104,10 @@ public class FinnEce {
 
         clavier.close();
     }
-
+    
+    
+    
+    
     public static List<List<String>> fileSavePlayer() {
 
         List<List<String>> infoSavePlayer = new ArrayList<List<String>>();
@@ -132,24 +139,42 @@ public class FinnEce {
         return infoSavePlayer;
     }
 
+    
+    
     //LANCE LE JEU
     public static void jeu(String name, int level, int score, Scanner clavier) {
+        
         boolean endPartie = false;
         Plateau map = new Plateau();
-
         map.loadMap(level);
+        
+       
         EceMan Personnage = new EceMan(name, level, map.getXPerso(), map.getYPerso(), score);
+        ControleurPlateau controleur = new ControleurPlateau(Personnage, map);
+        
+        
+        
+        AffichageConsole afficher = new AffichageConsole(map);
+    
+        
+        
+        
+        
 
         while (!endPartie) {
-            map.afficherMap(Personnage);
-            endPartie = map.modifierMap(Personnage, clavier);
+            afficher.afficherMap(Personnage);
+            endPartie = controleur.modifierMap(Personnage, clavier);
         }
 
-        map.afficherMap(Personnage);
+        afficher.afficherMap(Personnage);
         if (Personnage.getNiveau() != level) {
             System.out.println("Bravo niveau complété");
             map.sauvegarderMap();
         }
     }
 
+   
+    
+    
+    
 }

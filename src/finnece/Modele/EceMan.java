@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package finnece;
+package finnece.Modele;
 
 /**
  *
@@ -81,29 +81,5 @@ public class EceMan {
         this.score++;
     }
 
-    public boolean deplacerPersonnage(char direction) {
-
-        switch (direction) {
-            case 'z': { //déplacement vers le haut
-                this.x_eceman--;
-                return true;
-            }
-            case 's': { //déplacement vers le bas
-                this.x_eceman++;
-                return true;
-            }
-            case 'q': {//déplacement vers la gauche
-                this.y_eceman--;
-                return true;
-            }
-            case 'd': { //déplacement vers la droite
-                this.y_eceman++;
-                return true;
-            }
-            default: {
-                System.out.println("Veuillez réessayer ! \n Appuyer sur z pour aller vers le haut; s vers le bas ; q vers la gauche et d vers lz droite");
-                return false;
-            }
-        }
-    }
+    
 }

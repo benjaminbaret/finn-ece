@@ -171,9 +171,9 @@ public class Plateau {
 
         try {
             if (lvl == 1) {
-                Level = "./src/Sauvegarde/level1.txt";
+                Level = ".Sauvegarde/level1.txt";
             } else if (lvl == 2) {
-                Level = "./src/Sauvegarde/level2.txt";
+                Level = ".Sauvegarde/level2.txt";
             }
 
             FileInputStream filemap = new FileInputStream(Level);

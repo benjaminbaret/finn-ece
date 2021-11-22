@@ -34,7 +34,7 @@ public class fonctionBasique {
 
         try {
 
-            String saveScore = "./src/Sauvegarde/Score.txt";
+            String saveScore = "./Sauvegarde/Score.txt";
 
             FileInputStream filemap = new FileInputStream(saveScore);
             Scanner scanner = new Scanner(filemap);

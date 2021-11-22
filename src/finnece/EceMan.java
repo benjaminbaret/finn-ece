@@ -50,7 +50,7 @@ public class EceMan {
         return this.symbole;
     }
 
-    public int getNiveau() {
+    public int getLevel() {
 
         return this.level_eceman;
     }
@@ -65,7 +65,7 @@ public class EceMan {
         return this.y_eceman;
     }
 
-    public int getscore() {
+    public int getScore() {
         return this.score;
     }
 
@@ -77,8 +77,8 @@ public class EceMan {
         this.y_eceman = Y;
     }
 
-    public void setScore() {
-        this.score++;
+    public void setLevel() {
+        this.level_eceman++;
     }
 
     public boolean deplacerPersonnage(char direction) {

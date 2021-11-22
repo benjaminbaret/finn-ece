@@ -9,7 +9,6 @@ package finnece;
  *
  * @author theoc
  */
-import java.io.*;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,18 +16,19 @@ import java.util.List;
 public class FinnEce {
 
     public static void main(String[] args) {
-        boolean end = false;
-        int choix = 0;
+        boolean end = false, touche = false;
+        char choix = '0';
+        fonctionBasique fMenu = new fonctionBasique();
 
         Scanner clavier = null;
         clavier = new Scanner(System.in);
 
+        //Tableau de sauvegarde avec les informations des joueurs (nom, level, score)
         List<List<String>> infoSavePlayer = new ArrayList<List<String>>();
-        List<String> tempoInfo = new ArrayList<String>();
-
-        infoSavePlayer = fileSavePlayer();
 
         while (!end) {
+            infoSavePlayer = fMenu.fileSavePlayer(); //chargement des infos depuis le fichier .txt de sauvegarde
+
             System.out.println("               "
                     + "Menu :\n\n    "
                     + "- 1 : Affichage des règles\n    "
@@ -37,39 +37,43 @@ public class FinnEce {
                     + "- 4 : Affichage des scores\n    "
                     + "- 5 : Quitter\n");
 
-            choix = clavier.nextInt();
+            while (!touche) {
+                choix = clavier.next().charAt(0);
+                touche = fMenu.checkToucheValide(choix);
+            }
+            touche = false;
 
             switch (choix) {
 
-                case 1: { //regle
+                case '1': { //regle
                     System.out.println("Mettre la fonction afficher regle ici !");
+                    System.out.println("\n\n");
                     break;
                 }
-                case 2: {//nouvelle partie
+                case '2': {//nouvelle partie
                     String name;
                     System.out.print("Veuillez saisir votre nom de joueur : ");
                     name = clavier.next();
                     System.out.println(" ");
-                    jeu(name, 1, 0, clavier);
-                    System.out.println("\n\n");
+                    fMenu.jeu(name, 1, 0, clavier, infoSavePlayer);
 
+                    System.out.println("\n\n");
                     break;
                 }
-                case 3: {//reprise partie sauvegardée
+                case '3': {//reprise de la derniere partie sauvegardée
 
                     int numberPlayer = infoSavePlayer.size();
                     numberPlayer--;
                     String name = infoSavePlayer.get(numberPlayer).get(0);
                     String levelString = infoSavePlayer.get(numberPlayer).get(1);
                     String scoreString = infoSavePlayer.get(numberPlayer).get(2);
-
-                    jeu(name, Integer.parseInt(levelString), Integer.parseInt(scoreString), clavier);
+                    //Integer.parseInt(...) -> passer un string en int
+                    fMenu.jeu(name, Integer.parseInt(levelString), Integer.parseInt(scoreString), clavier, infoSavePlayer);
 
                     System.out.println("\n\n");
-
                     break;
                 }
-                case 4: {//voir les scores
+                case '4': {//voir les scores
 
                     System.out.println("        Score :\n");
 
@@ -89,7 +93,7 @@ public class FinnEce {
                     break;
                 }
 
-                case 5: {//quitter
+                case '5': {//quitter
                     end = true;
                     break;
                 }
@@ -97,59 +101,6 @@ public class FinnEce {
                     System.out.println("Veuillez réessayer ! \n");
             }
         }
-
         clavier.close();
     }
-
-    public static List<List<String>> fileSavePlayer() {
-
-        List<List<String>> infoSavePlayer = new ArrayList<List<String>>();
-        String lignemap = new String();
-
-        try {
-
-            String saveScore = "./Sauvegarde/Score.txt";
-
-            FileInputStream filemap = new FileInputStream(saveScore);
-            Scanner scanner = new Scanner(filemap);
-
-            while (scanner.hasNext()) {
-                List<String> coloneinfo = new ArrayList<String>();
-                lignemap = scanner.nextLine();
-                String tbtempo[] = lignemap.split(" ");
-                for (int i = 0; i < tbtempo.length; i++) {
-                    coloneinfo.add(tbtempo[i]);
-                }
-                infoSavePlayer.add(coloneinfo);
-            }
-
-        } catch (IOException e) {
-            System.out.println("Le fichier n'a pas pu être lu");
-            System.out.println(" ");
-
-        }
-
-        return infoSavePlayer;
-    }
-
-    //LANCE LE JEU
-    public static void jeu(String name, int level, int score, Scanner clavier) {
-        boolean endPartie = false;
-        Plateau map = new Plateau();
-
-        map.loadMap(level);
-        EceMan Personnage = new EceMan(name, level, map.getXPerso(), map.getYPerso(), score);
-
-        while (!endPartie) {
-            map.afficherMap(Personnage);
-            endPartie = map.modifierMap(Personnage, clavier);
-        }
-
-        map.afficherMap(Personnage);
-        if (Personnage.getNiveau() != level) {
-            System.out.println("Bravo niveau complété");
-            map.sauvegarderMap();
-        }
-    }
-
 }

@@ -7,6 +7,7 @@ package finnece;
 
 //java.io.* --> SAUVEGARDE
 import java.io.*;
+import java.util.List;
 import java.util.Scanner;
 
 public class Plateau {
@@ -16,6 +17,9 @@ public class Plateau {
     private String plateauJeux[][] = new String[lenght_plateau][width_plateau];
     private String Level;
 
+    /*
+                        GETTER
+     */
     int getXPerso() {
         int x_pingouin = 0;
         for (int i = 0; i < lenght_plateau; i++) {
@@ -64,11 +68,15 @@ public class Plateau {
         return y_objectif;
     }
 
+    /*
+                        FIN GETTER
+                        AFFICHAGE
+     */
     void afficherMap(EceMan Personnage) {
         System.out.print("\033[H\033[2J");
         System.out.flush();
         System.out.println("\n\n            Name : " + Personnage.getNom());
-        System.out.println("Score : " + Personnage.getscore() + "                  Niveau : " + Personnage.getNiveau());
+        System.out.println("Score : " + Personnage.getScore() + "                  Niveau : " + Personnage.getLevel());
         for (int i = 0; i < lenght_plateau; i++) {
             for (int j = 0; j < width_plateau; j++) {
 
@@ -90,6 +98,10 @@ public class Plateau {
         System.out.print("\033[0m");
     }
 
+    /*
+                        FIN AFFICHAGE
+                        DEPLACER PERSO SUR LA MAP
+     */
     public boolean modifierMap(EceMan Personnage, Scanner clavier) {
 
         boolean validationTouche = false;
@@ -123,22 +135,25 @@ public class Plateau {
             } else if ("O".equals(plateauJeux[Personnage.getXPerso()][Personnage.getYPerso()])) {
                 plateauJeux[Personnage.getXPerso()][Personnage.getYPerso()] = Personnage.getSymbole();
                 plateauJeux[lastposX][lastposY] = "G";
-                Personnage.setScore();
+                Personnage.setLevel();
                 return true;
             }
         }
         return false;
     }
 
-    // SAUVEGARDE & CHARGEMENT
-    void sauvegarderMap() {
+    /*
+                        FIN DEPLACER PERSO SUR LA MAP
+                        SAUVEGARDE & CHARGEMENT
+     */
+    void sauvegardeScore( List<List<String>> infoPlayer) {
         try {
-            FileWriter fileSave = new FileWriter("./Sauvegarde/Save.txt");
+            FileWriter fileSave = new FileWriter("./Sauvegarde/Score.txt");
             BufferedWriter writter = new BufferedWriter(fileSave);
 
-            for (int i = 0; i < lenght_plateau; i++) {
-                for (int j = 0; j < width_plateau; j++) {
-                    writter.write(plateauJeux[i][j] + " ");
+            for (int i = 0; i < infoPlayer.size(); i++) {
+                for (int j = 0; j < infoPlayer.get(i).size(); j++) {
+                    writter.write(infoPlayer.get(i).get(j) + " ");
                 }
                 writter.newLine();
             }
@@ -156,11 +171,9 @@ public class Plateau {
 
         try {
             if (lvl == 1) {
-                Level = "./Sauvegarde/level1.txt";
+                Level = "./src/Sauvegarde/level1.txt";
             } else if (lvl == 2) {
-                Level = "./Sauvegarde/level2.txt";
-            } else {
-                Level = "./Sauvegarde/SaveMap.txt";
+                Level = "./src/Sauvegarde/level2.txt";
             }
 
             FileInputStream filemap = new FileInputStream(Level);
@@ -182,4 +195,7 @@ public class Plateau {
         }
     }
 
+    /*
+                        FIN SAUVEGARDE & CHARGEMENT
+     */
 }

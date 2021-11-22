@@ -15,67 +15,75 @@ public class Plateau {
     public static final int WIDTH = 19;
     public static final int HEIGHT = 15;
     private String Level;
+    private CasePlateau plateauJeu[][] = new CasePlateau[HEIGHT][WIDTH];
+    
+    
+    public char[][] getPlateau(){
+        char[][] plateau = new char[HEIGHT][WIDTH];
+        for(int i=0; i<HEIGHT; i++){
+            for(int j=0; j<WIDTH; j++){
+                plateau[i][j] = plateauJeu[i][j].getSymbole();
+            }
+        }
+        return plateau;
+        
+    }
+    
+    public int getXSymbol(char s){ // fonctionne seulement pour les éléments uniques du tableau (possibilité d'étendre en vérifiant si le symbole est un symbole unique ou non"
+        for(int i=0; i<HEIGHT; i++){
+            for(int j=0; j<WIDTH; j++){
+                if(s == plateauJeu[i][j].getSymbole()){
+                    return i;
+                }
+            }
+        }
+        return 404;
+    }
 
 
-    private String plateauJeux[][] = new String[HEIGHT][WIDTH];
+
+    public int getYSymbol(char s){ // fonctionne seulement pour les éléments uniques du tableau (possibilité d'étendre en vérifiant si le symbole est un symbole unique ou non"
+        for(int i=0; i<HEIGHT; i++){
+            for(int j=0; j<WIDTH; j++){
+                if(s == plateauJeu[i][j].getSymbole()){
+                    return j;
+                }
+            }
+        }
+        
+        
+        return 404;
+    }
+    
+    public void changeSymbol(int x, int y, String str){
+        switch(str){
+            case "-X":{
+                plateauJeu[x-1][y] = plateauJeu[x][y];
+                plateauJeu[x][y] = new Banquise(x, y, 'G', 2);
+                break;
+            }
+            case "+X":{
+                plateauJeu[x+1][y] = plateauJeu[x][y];
+                plateauJeu[x][y] = new Banquise(x, y, 'G', 2);
+                break;
+            }
+            case "-Y":{
+                plateauJeu[x][y-1] = plateauJeu[x][y];
+                plateauJeu[x][y] = new Banquise(x, y, 'G', 2);
+                break;
+            }
+            case "+Y":{
+                plateauJeu[x][y+1] = plateauJeu[x][y];
+                plateauJeu[x][y] = new Banquise(x, y, 'G', 2);
+                break;
+            }
+                
+        }
+        
+    }
+    
     
    
-    
-    
-    public String[][] getPlateau(){
-        return plateauJeux;
-    }
-
-    public int getXPerso() {
-        int x_pingouin = 0;
-        for (int i = 0; i < HEIGHT; i++) {
-            for (int j = 0; j < WIDTH; j++) {
-                if ("P".equals(plateauJeux[i][j])) {
-                    x_pingouin = i;
-                }
-            }
-        }
-        return x_pingouin;
-    }
-
-    public int getYPerso() {
-        int y_pingouin = 0;
-        for (int i = 0; i < HEIGHT; i++) {
-            for (int j = 0; j < WIDTH; j++) {
-                if ("P".equals(plateauJeux[i][j])) {
-                    y_pingouin = j;
-                }
-            }
-        }
-        return y_pingouin;
-    }
-
-    public int getXObjectif() {
-        int x_objectif = 0;
-        for (int i = 0; i < HEIGHT; i++) {
-            for (int j = 0; j < WIDTH; j++) {
-                if ("O".equals(plateauJeux[i][j])) {
-                    x_objectif = i;
-                }
-            }
-        }
-        return x_objectif;
-    }
-
-    public int getYObjectif() {
-        int y_objectif = 0;
-        for (int i = 0; i < HEIGHT; i++) {
-            for (int j = 0; j < WIDTH; j++) {
-                if ("O".equals(plateauJeux[i][j])) {
-                    y_objectif = j;
-                }
-            }
-        }
-        return y_objectif;
-    }
-
-
-    
 
     // SAUVEGARDE & CHARGEMENT
     public void sauvegarderMap() {
@@ -85,7 +93,7 @@ public class Plateau {
 
             for (int i = 0; i < HEIGHT; i++) {
                 for (int j = 0; j < WIDTH; j++) {
-                    writter.write(plateauJeux[i][j] + " ");
+                    writter.write(plateauJeu[i][j].getSymbole() + " ");
                 }
                 writter.newLine();
             }
@@ -121,8 +129,25 @@ public class Plateau {
                 lignemap = scanner.nextLine();
                 String tbtempo[] = lignemap.split(" ");
                 for (int j = 0; j < WIDTH; j++) {
-                    plateauJeux[i][j] = tbtempo[j];
-           
+                    switch(tbtempo[j]){
+                        case "X":
+                            plateauJeu[i][j] = new ObjetPlateau(i, j, 'X');
+                            break;
+                        case "M":
+                            plateauJeu[i][j] = new ObjetPlateau(i, j, 'M');
+                            break;
+                        case "G":
+                            plateauJeu[i][j] = new Banquise(i, j, 'G', 1); // Ajouter ici le cas ou la glasse sera sur deux passages
+                            break;
+                        case "O":
+                            plateauJeu[i][j] = new ObjetPlateau(i, j, 'O');
+                            break;
+                        case "A":
+                            plateauJeu[i][j] = new EceMan();
+                            break;
+                        case "P":
+                            plateauJeu[i][j] = new ObjetPlateau(i, j, 'P');
+                    }
                 }
             }
             scanner.close();

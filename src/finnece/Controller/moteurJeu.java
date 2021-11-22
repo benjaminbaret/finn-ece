@@ -144,29 +144,25 @@ public class moteurJeu {
     //LANCE LE JEU
     public static void jeu(String name, int level, int score, Scanner clavier) {
         
+       
+        
         boolean endPartie = false;
         Plateau map = new Plateau();
         map.loadMap(level);
         
        
-        EceMan Personnage = new EceMan(name, level, map.getXPerso(), map.getYPerso(), score);
-        ControleurPlateau controleur = new ControleurPlateau(Personnage, map);
+        EceMan Personnage = new EceMan(name, level, map.getXSymbol('P'), map.getYSymbol('P'), score);
         
-        
-        
+        ControleurPlateau controleur = new ControleurPlateau(map, Personnage);
         AffichageConsole afficher = new AffichageConsole(map);
-    
-        
-        
-        
-        
 
         while (!endPartie) {
-            afficher.afficherMap(Personnage);
-            endPartie = controleur.modifierMap(Personnage, clavier);
+            afficher.afficherMap();
+            map = controleur.modifierMap(Personnage, clavier);
+            afficher.update(map);
         }
 
-        afficher.afficherMap(Personnage);
+        afficher.afficherMap();
         if (Personnage.getNiveau() != level) {
             System.out.println("Bravo niveau complété");
             map.sauvegarderMap();

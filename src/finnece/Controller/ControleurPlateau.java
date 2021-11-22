@@ -5,6 +5,7 @@
  */
 package finnece.Controller;
 
+import finnece.Modele.Banquise;
 import finnece.Modele.EceMan;
 import finnece.Modele.Plateau;
 
@@ -15,87 +16,69 @@ import java.util.Scanner;
  * @author benja
  */
 public class ControleurPlateau {
-    
-    private EceMan eceman;
-    private Plateau plateauJeux;
-    
 
-    public ControleurPlateau(EceMan eceman, Plateau plateauJeux){
-        this.eceman = eceman;
-        this.plateauJeux = plateauJeux;
+    private Plateau plateauJeu;
+
+    public ControleurPlateau(Plateau plateauJeu, EceMan personnage) {
+
+        this.plateauJeu = plateauJeu;
+
     }
-    
-    
-    
-    
-  
-    
-    public boolean modifierMap(EceMan Personnage, Scanner clavier) {
+
+    public Plateau modifierMap(EceMan Personnage, Scanner clavier) {
 
         boolean validationTouche = false;
 
         char toucheDeplacement;
 
-        int lastposX = Personnage.getXPerso();
-        int lastposY = Personnage.getYPerso();
+        int lastposX = plateauJeu.getXSymbol('A');
+        int lastposY = plateauJeu.getYSymbol('A');
+        System.out.println(lastposX);
+        System.out.println(lastposY);
 
         System.out.print("Déplacement : ");
         toucheDeplacement = clavier.next().charAt(0);
-        if (toucheDeplacement == 'p') {
-            return true;
-        }
+        
         validationTouche = deplacerPersonnage(toucheDeplacement);
 
-        //MAJ position Eceman
-        if (validationTouche == true) {
-
-            if ("M".equals(plateauJeux.getPlateau()[Personnage.getXPerso()][Personnage.getYPerso()])) {
-                Personnage.setXperso(lastposX);
-                Personnage.setYperso(lastposY);
-                System.out.println("Déplacement impossible");
-                return false;
-
-            } else if ("G".equals(plateauJeux.getPlateau()[Personnage.getXPerso()][Personnage.getYPerso()])) {
-                plateauJeux.getPlateau()[Personnage.getXPerso()][Personnage.getYPerso()] = Personnage.getSymbole();
-                plateauJeux.getPlateau()[lastposX][lastposY] = "G";
-                return false;
-
-            } else if ("O".equals(plateauJeux.getPlateau()[Personnage.getXPerso()][Personnage.getYPerso()])) {
-                plateauJeux.getPlateau()[Personnage.getXPerso()][Personnage.getYPerso()] = Personnage.getSymbole();
-                plateauJeux.getPlateau()[lastposX][lastposY] = "G";
-                Personnage.setScore();
-                return true;
-            }
-        }
-        return false;
+       
+        return plateauJeu;
     }
-    
+
     boolean deplacerPersonnage(char direction) {
 
         switch (direction) {
             case 'z': { //déplacement vers le haut
-                eceman.setXperso(eceman.getXPerso()-1);
-                return true;
+                if ((plateauJeu.getPlateau()[plateauJeu.getXSymbol('A')][plateauJeu.getYSymbol('A')-1]) != 'M') {
+                    plateauJeu.changeSymbol(plateauJeu.getXSymbol('A'), plateauJeu.getYSymbol('A'), "-Y");
+                    return true;
+                }
             }
             case 's': { //déplacement vers le bas
-                eceman.setXperso(eceman.getXPerso()+1);
-                return true;
+                if ((plateauJeu.getPlateau()[plateauJeu.getXSymbol('A')][plateauJeu.getYSymbol('A')+1]) != 'M') {
+                    plateauJeu.changeSymbol(plateauJeu.getXSymbol('A') , plateauJeu.getYSymbol('A'), "+Y");
+                    return true;
+                }
             }
             case 'q': {//déplacement vers la gauche
-                eceman.setYperso(eceman.getYPerso()-1);
-                return true;
+                if ((plateauJeu.getPlateau()[plateauJeu.getXSymbol('A')-1][plateauJeu.getYSymbol('A')]) != 'M') { // ajouter les vérifs pour ne pas être sur pointeur null ... 
+                    plateauJeu.changeSymbol(plateauJeu.getXSymbol('A'), plateauJeu.getYSymbol('A'), "-X");
+                    return true;
+                }
             }
             case 'd': { //déplacement vers la droite
-                eceman.setYperso(eceman.getYPerso()+1);
-                return true;
+                
+                if ((plateauJeu.getPlateau()[plateauJeu.getXSymbol('A')+1][plateauJeu.getYSymbol('A')]) != 'M') {
+                    plateauJeu.changeSymbol(plateauJeu.getXSymbol('A'), plateauJeu.getYSymbol('A'), "+X");
+                    return true;
+                }
             }
             default: {
-                System.out.println("Veuillez réessayer ! \n Appuyer sur z pour aller vers le haut; s vers le bas ; q vers la gauche et d vers lz droite");
+                System.out.println("Veuillez réessayer / Déplacement impossible ! \n Appuyer sur z pour aller vers le haut; s vers le bas ; q vers la gauche et d vers lz droite");
                 return false;
             }
+
         }
     }
-    
-    
     
 }

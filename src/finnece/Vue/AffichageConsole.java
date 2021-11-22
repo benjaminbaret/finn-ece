@@ -20,16 +20,19 @@ public class AffichageConsole {
         this.plateau = plateau;
     }
     
-    public void afficherMap(EceMan Personnage) {
+    public void update(Plateau tab){
+        this.plateau = tab;
+    }
+    
+    public void afficherMap() {
         
         System.out.print("\033[H\033[2J");
         System.out.flush();
-        System.out.println("\n\n            Name : " + Personnage.getNom());
-        System.out.println("Score : " + Personnage.getscore() + "                  Niveau : " + Personnage.getNiveau());
+        
         for (int i = 0; i < Plateau.HEIGHT; i++) {
             for (int j = 0; j < Plateau.WIDTH; j++) {
                 
-                String var = plateau.getPlateau()[i][j];
+                char var = plateau.getPlateau()[i][j];
                 
                 if ("G".equals(var)) {
                     System.out.print("\033[34m" + var+ " ");

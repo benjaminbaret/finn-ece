@@ -57,24 +57,24 @@ public class Plateau {
     
     public void changeSymbol(int x, int y, String str){
         switch(str){
-            case "-X":{
-                plateauJeu[x-1][y] = plateauJeu[x][y];
-                plateauJeu[x][y] = new Banquise(x, y, 'G', 2);
-                break;
-            }
-            case "+X":{
-                plateauJeu[x+1][y] = plateauJeu[x][y];
-                plateauJeu[x][y] = new Banquise(x, y, 'G', 2);
-                break;
-            }
             case "-Y":{
                 plateauJeu[x][y-1] = plateauJeu[x][y];
-                plateauJeu[x][y] = new Banquise(x, y, 'G', 2);
+                plateauJeu[x][y] = new Banquise(x, y, 'O', 2);
                 break;
             }
             case "+Y":{
                 plateauJeu[x][y+1] = plateauJeu[x][y];
-                plateauJeu[x][y] = new Banquise(x, y, 'G', 2);
+                plateauJeu[x][y] = new Banquise(x, y, 'O', 2);
+                break;
+            }
+            case "-X":{
+                plateauJeu[x-1][y] = plateauJeu[x][y];
+                plateauJeu[x][y] = new Banquise(x, y, 'O', 2);
+                break;
+            }
+            case "+X":{
+                plateauJeu[x+1][y] = plateauJeu[x][y];
+                plateauJeu[x][y] = new Banquise(x, y, 'O', 2);
                 break;
             }
                 

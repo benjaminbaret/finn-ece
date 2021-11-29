@@ -24,11 +24,12 @@ public class AffichageConsole {
         this.plateau = tab;
     }
     
-    public void afficherMap() {
+    public void afficherMap(EceMan Personnage) {
         
         System.out.print("\033[H\033[2J");
         System.out.flush();
-        
+        System.out.println("\n\n            Name : " + Personnage.getNom());
+        System.out.println("Score : " + Personnage.getScore() + "                  Niveau : " + Personnage.getLevel());
         for (int i = 0; i < Plateau.HEIGHT; i++) {
             for (int j = 0; j < Plateau.WIDTH; j++) {
                 

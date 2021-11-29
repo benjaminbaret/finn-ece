@@ -17,8 +17,9 @@ public class ObjetPlateau extends CasePlateau {
     
     
     
-    public void applyProperty(){
-        
+    
+    public void applyProperty(String myString){ //mystring == po
+       
     }
     
 }

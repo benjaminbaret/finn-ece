@@ -27,63 +27,52 @@ public class ControleurPlateau {
 
     public Plateau modifierMap(EceMan Personnage, Scanner clavier) {
 
-        boolean validationTouche = false;
-
         char toucheDeplacement;
 
-        int lastposX = plateauJeu.getXSymbol('A');
-        int lastposY = plateauJeu.getYSymbol('A');
-        System.out.println(lastposX);
-        System.out.println(lastposY);
 
         System.out.print("Déplacement : ");
         toucheDeplacement = clavier.next().charAt(0);
-        
-        validationTouche = deplacerPersonnage(toucheDeplacement);
 
-       
+        deplacerPersonnage(toucheDeplacement);
+
         return plateauJeu;
     }
 
-    boolean deplacerPersonnage(char direction) {
+    void deplacerPersonnage(char direction) {
+        int getXEceMan = plateauJeu.getXSymbol('P');
+        int getYEceMan = plateauJeu.getYSymbol('P');
 
         switch (direction) {
             case 'z': { //déplacement vers le haut
-                if ((plateauJeu.getPlateau()[plateauJeu.getXSymbol('A')-1][plateauJeu.getYSymbol('A')]) != 'M') {
-                    plateauJeu.changeSymbol(plateauJeu.getXSymbol('A'), plateauJeu.getYSymbol('A'), "-X");
-                    return true;
+                if ((plateauJeu.getPlateau()[getXEceMan - 1][getYEceMan]) != 'M') {
+                    plateauJeu.changeSymbol(getXEceMan, getYEceMan, "-X");
                 }
                 break;
             }
             case 's': { //déplacement vers le bas
-                if ((plateauJeu.getPlateau()[plateauJeu.getXSymbol('A')+1][plateauJeu.getYSymbol('A')]) != 'M') {
-                    plateauJeu.changeSymbol(plateauJeu.getXSymbol('A'), plateauJeu.getYSymbol('A'), "+X");
-                    return true;
+                if ((plateauJeu.getPlateau()[getXEceMan + 1][getYEceMan]) != 'M') {
+                    plateauJeu.changeSymbol(getXEceMan, getYEceMan, "+X");
                 }
                 break;
             }
             case 'q': {//déplacement vers la gauche
-                if ((plateauJeu.getPlateau()[plateauJeu.getXSymbol('A')][plateauJeu.getYSymbol('A')-1]) != 'M') { // ajouter les vérifs pour ne pas être sur pointeur null ... 
-                    plateauJeu.changeSymbol(plateauJeu.getXSymbol('A'), plateauJeu.getYSymbol('A'), "-Y");
-                    return true;
+                if ((plateauJeu.getPlateau()[getXEceMan][getYEceMan - 1]) != 'M') { // ajouter les vérifs pour ne pas être sur pointeur null ... 
+                    plateauJeu.changeSymbol(getXEceMan, getYEceMan, "-Y");
                 }
                 break;
             }
             case 'd': { //déplacement vers la droite
-                
-                if ((plateauJeu.getPlateau()[plateauJeu.getXSymbol('A')][plateauJeu.getYSymbol('A')]+1) != 'M') {
-                    plateauJeu.changeSymbol(plateauJeu.getXSymbol('A'), plateauJeu.getYSymbol('A'), "+Y");
-                    return true;
+
+                if ((plateauJeu.getPlateau()[getXEceMan][getYEceMan + 1]) != 'M') {
+                    plateauJeu.changeSymbol(getXEceMan, getYEceMan, "+Y");
                 }
                 break;
             }
             default: {
                 System.out.println("Veuillez réessayer / Déplacement impossible ! \n Appuyer sur z pour aller vers le haut; s vers le bas ; q vers la gauche et d vers lz droite");
-                return false;
             }
 
         }
-        return false;
     }
-    
+
 }

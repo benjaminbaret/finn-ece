@@ -96,7 +96,7 @@ public class Plateau {
             if (lvl == 1) {
                 Level = "./Sauvegarde/level1.txt";
             } else if (lvl == 2) {
-                Level = "./Sauvegade/level2.txt";
+                Level = "./Sauvegarde/level2.txt";
             }
 
             FileInputStream filemap = new FileInputStream(Level);
@@ -131,7 +131,7 @@ public class Plateau {
             }
             scanner.close();
         } catch (IOException e) {
-            System.out.println("Le fichier n'a pas pu être lu");
+            System.out.println("Le fichier de charement de la map n'a pas pu être lu");
             System.out.println(" ");
 
         }

@@ -32,7 +32,7 @@ public class moteurJeu {
 
         while (!end) {
             infoSavePlayer = fileSavePlayer(); //chargement des infos depuis le fichier .txt de sauvegarde
-
+            //cls();
             System.out.println("               "
                     + "Menu :\n\n    "
                     + "- 1 : Affichage des règles\n    "
@@ -137,7 +137,7 @@ public class moteurJeu {
                 infoSavePlayer.add(coloneinfo);
             }
         } catch (IOException e) {
-            System.out.println("Le fichier n'a pas pu être lu");
+            System.out.println("Le fichier de chargement des scores n'a pas pu être lu");
             System.out.println(" ");
         }
         return infoSavePlayer;
@@ -193,4 +193,17 @@ public class moteurJeu {
         }
     }
 
+    
+    
+    
+    public static void cls(){
+        
+        try{
+            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+        } catch(Exception e){
+            System.out.println(e);
+        }
+        
+    }
+    
 }

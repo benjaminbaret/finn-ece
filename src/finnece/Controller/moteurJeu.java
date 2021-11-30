@@ -8,6 +8,9 @@ package finnece.Controller;
 import finnece.Modele.EceMan;
 import finnece.Modele.Plateau;
 import finnece.Vue.AffichageConsole;
+import java.awt.FlowLayout;
+import java.awt.Frame;
+import java.awt.Label;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,7 +23,7 @@ import java.util.Scanner;
  */
 public class moteurJeu {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         boolean end = false, touche = false;
         char choix = '0';
 
@@ -144,7 +147,7 @@ public class moteurJeu {
     }
 
     //LANCE LE JEU
-    public static List<List<String>> jeu(String name, int level, int score, Scanner clavier, List<List<String>> infoSavePlayer) {
+    public static List<List<String>> jeu(String name, int level, int score, Scanner clavier, List<List<String>> infoSavePlayer) throws InterruptedException {
 
         List<String> newPlayer = new ArrayList<String>();
 
@@ -154,13 +157,28 @@ public class moteurJeu {
 
         EceMan Personnage = new EceMan(name, level, map.getXSymbol('P'), map.getYSymbol('P'), score);
 
-        ControleurPlateau controleur = new ControleurPlateau(map, Personnage);
+        /////////////
+        char toucheDeplacement;
+        Frame f = new Frame("Demo");
+	f.setLayout(new FlowLayout());
+	f.setSize(200, 200);
+	Label l = new Label();
+	l.setText("This is a Game");
+	f.add(l);
+        f.setVisible(true);
+		
+		//Creating and adding the key listener
+	ControleurPlateau controleur = new ControleurPlateau(map, Personnage);
+	f.addKeyListener(controleur);
+        ////////////
+       
         AffichageConsole afficher = new AffichageConsole(map);
 
         while (!endPartie) {
             afficher.afficherMap(Personnage);
             map = controleur.modifierMap(Personnage, clavier);
             afficher.update(map);
+            Thread.sleep(200); 
 
             if (map.endGame()) {
                 endPartie = true;

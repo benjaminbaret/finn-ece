@@ -9,13 +9,20 @@ import finnece.Modele.Banquise;
 import finnece.Modele.EceMan;
 import finnece.Modele.Plateau;
 
+
 import java.util.Scanner;
+import java.awt.FlowLayout;
+import java.awt.Frame;
+import java.awt.Label;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
 
 /**
  *
  * @author benja
  */
-public class ControleurPlateau {
+public class ControleurPlateau implements KeyListener{
 
     private Plateau plateauJeu;
 
@@ -27,41 +34,51 @@ public class ControleurPlateau {
 
     public Plateau modifierMap(EceMan Personnage, Scanner clavier) {
 
-        char toucheDeplacement;
+    
+        
+        
+                
+              
 
 
-        System.out.print("Déplacement : ");
-        toucheDeplacement = clavier.next().charAt(0);
+        //System.out.print("Déplacement : ");
+      //  toucheDeplacement = clavier.next().charAt(0);
 
-        deplacerPersonnage(toucheDeplacement);
+        
 
         return plateauJeu;
     }
+    
+    
+    
 
-    void deplacerPersonnage(char direction) {
+    
+    @Override
+    public void keyPressed(KeyEvent ke) {
+        
         int getXEceMan = plateauJeu.getXSymbol('P');
         int getYEceMan = plateauJeu.getYSymbol('P');
 
-        switch (direction) {
-            case 'z': { //déplacement vers le haut
+        switch (ke.getKeyCode()) {
+            case KeyEvent.VK_UP: { //déplacement vers le haut
                 if ((plateauJeu.getPlateau()[getXEceMan - 1][getYEceMan]) != 'M') {
                     plateauJeu.changeSymbol(getXEceMan, getYEceMan, "-X");
                 }
                 break;
             }
-            case 's': { //déplacement vers le bas
+            case KeyEvent.VK_DOWN: { //déplacement vers le bas
                 if ((plateauJeu.getPlateau()[getXEceMan + 1][getYEceMan]) != 'M') {
                     plateauJeu.changeSymbol(getXEceMan, getYEceMan, "+X");
                 }
                 break;
             }
-            case 'q': {//déplacement vers la gauche
+            case KeyEvent.VK_LEFT: {//déplacement vers la gauche
                 if ((plateauJeu.getPlateau()[getXEceMan][getYEceMan - 1]) != 'M') { // ajouter les vérifs pour ne pas être sur pointeur null ... 
                     plateauJeu.changeSymbol(getXEceMan, getYEceMan, "-Y");
                 }
                 break;
             }
-            case 'd': { //déplacement vers la droite
+            case KeyEvent.VK_RIGHT: { //déplacement vers la droite
 
                 if ((plateauJeu.getPlateau()[getXEceMan][getYEceMan + 1]) != 'M') {
                     plateauJeu.changeSymbol(getXEceMan, getYEceMan, "+Y");
@@ -73,6 +90,23 @@ public class ControleurPlateau {
             }
 
         }
+    
     }
 
+    @Override
+    public void keyTyped(KeyEvent ke) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void keyReleased(KeyEvent ke) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
+    
 }
+    
+    
+
+

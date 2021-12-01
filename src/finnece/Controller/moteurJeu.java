@@ -63,7 +63,6 @@ public class moteurJeu {
                     System.out.println(" ");
                     jeu(name, 1, 0, clavier, infoSavePlayer);
                     System.out.println("\n\n");
-
                     break;
                 }
                 case '3': {//reprise partie sauvegardée
@@ -73,7 +72,7 @@ public class moteurJeu {
                     String name = infoSavePlayer.get(numberPlayer).get(0);
                     String levelString = infoSavePlayer.get(numberPlayer).get(1);
                     String scoreString = infoSavePlayer.get(numberPlayer).get(2);
-                    
+
                     infoSavePlayer.remove(numberPlayer);
                     jeu(name, Integer.parseInt(levelString), Integer.parseInt(scoreString), clavier, infoSavePlayer);
 
@@ -160,25 +159,25 @@ public class moteurJeu {
         /////////////
         char toucheDeplacement;
         Frame f = new Frame("Demo");
-	f.setLayout(new FlowLayout());
-	f.setSize(200, 200);
-	Label l = new Label();
-	l.setText("This is a Game");
-	f.add(l);
+        f.setLayout(new FlowLayout());
+        f.setSize(200, 200);
+        Label l = new Label();
+        l.setText("This is a Game");
+        f.add(l);
         f.setVisible(true);
-		
-		//Creating and adding the key listener
-	ControleurPlateau controleur = new ControleurPlateau(map, Personnage);
-	f.addKeyListener(controleur);
+
+        //Creating and adding the key listener
+        ControleurPlateau controleur = new ControleurPlateau(map, Personnage);
+        f.addKeyListener(controleur);
         ////////////
-       
+
         AffichageConsole afficher = new AffichageConsole(map);
 
         while (!endPartie) {
             afficher.afficherMap(Personnage);
             map = controleur.modifierMap(Personnage, clavier);
             afficher.update(map);
-            Thread.sleep(200); 
+            Thread.sleep(750);
 
             if (map.endGame()) {
                 endPartie = true;
@@ -211,17 +210,19 @@ public class moteurJeu {
         }
     }
 
-    
-    
-    
-    public static void cls(){
-        
-        try{
-            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-        } catch(Exception e){
+    public static void cls() {
+
+        try {
+            final String os = System.getProperty("os.name");
+            if (os.contains("Windows")) {
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            } else {
+                Runtime.getRuntime().exec("clear");
+            }
+        } catch (Exception e) {
             System.out.println(e);
         }
-        
+
     }
-    
+
 }

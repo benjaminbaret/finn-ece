@@ -48,7 +48,7 @@ public class ControleurPlateau implements KeyListener {
             case KeyEvent.VK_UP: { //déplacement vers le haut
                 if ((plateauJeu.getPlateau()[getXEceMan - 1][getYEceMan]) != 'M') {
                     if ((plateauJeu.getPlateau()[getXEceMan - 1][getYEceMan]) == 'D') {
-                        if ((plateauJeu.getPlateau()[getXEceMan - 2][getYEceMan]) != 'M' && (plateauJeu.getPlateau()[getXEceMan - 2][getYEceMan]) != 'D') {
+                        if ((plateauJeu.getPlateau()[getXEceMan - 2][getYEceMan]) != 'M' && (plateauJeu.getPlateau()[getXEceMan - 2][getYEceMan]) != 'D' && (plateauJeu.getPlateau()[getXEceMan - 2][getYEceMan]) != 'H') {
                             Bloc = "murdeplacable";
                             plateauJeu.changeSymbol(getXEceMan, getYEceMan, "-X", Bloc);
                             Bloc = " ";
@@ -62,7 +62,7 @@ public class ControleurPlateau implements KeyListener {
             case KeyEvent.VK_DOWN: { //déplacement vers le bas
                 if ((plateauJeu.getPlateau()[getXEceMan + 1][getYEceMan]) != 'M') {
                     if ((plateauJeu.getPlateau()[getXEceMan + 1][getYEceMan]) == 'D') {
-                        if ((plateauJeu.getPlateau()[getXEceMan + 2][getYEceMan]) != 'M' && (plateauJeu.getPlateau()[getXEceMan + 2][getYEceMan]) != 'D') {
+                        if ((plateauJeu.getPlateau()[getXEceMan + 2][getYEceMan]) != 'M' && (plateauJeu.getPlateau()[getXEceMan + 2][getYEceMan]) != 'D' && (plateauJeu.getPlateau()[getXEceMan + 2][getYEceMan]) != 'H') {
                             Bloc = "murdeplacable";
                             plateauJeu.changeSymbol(getXEceMan, getYEceMan, "+X", Bloc);
                             Bloc = " ";
@@ -77,7 +77,7 @@ public class ControleurPlateau implements KeyListener {
                 if ((plateauJeu.getPlateau()[getXEceMan][getYEceMan - 1]) != 'M') { // ajouter les vérifs pour ne pas être sur pointeur null ... 
 
                     if ((plateauJeu.getPlateau()[getXEceMan][getYEceMan - 1]) == 'D') {
-                        if ((plateauJeu.getPlateau()[getXEceMan][getYEceMan - 2]) != 'M' && (plateauJeu.getPlateau()[getXEceMan][getYEceMan - 2]) != 'D') {
+                        if ((plateauJeu.getPlateau()[getXEceMan][getYEceMan - 2]) != 'M' && (plateauJeu.getPlateau()[getXEceMan][getYEceMan - 2]) != 'D' && (plateauJeu.getPlateau()[getXEceMan][getYEceMan - 2]) != 'H') {
                             Bloc = "murdeplacable";
                             plateauJeu.changeSymbol(getXEceMan, getYEceMan, "-Y", Bloc);
                             Bloc = " ";
@@ -92,21 +92,20 @@ public class ControleurPlateau implements KeyListener {
 
                 if ((plateauJeu.getPlateau()[getXEceMan][getYEceMan + 1]) != 'M') {
                     if ((plateauJeu.getPlateau()[getXEceMan][getYEceMan + 1]) == 'D') {
-                        if ((plateauJeu.getPlateau()[getXEceMan][getYEceMan + 2]) != 'M' && (plateauJeu.getPlateau()[getXEceMan][getYEceMan + 2]) != 'D') {
-                        Bloc = "murdeplacable";
+                        if ((plateauJeu.getPlateau()[getXEceMan][getYEceMan + 2]) != 'M' && (plateauJeu.getPlateau()[getXEceMan][getYEceMan + 2]) != 'D' && (plateauJeu.getPlateau()[getXEceMan][getYEceMan + 2]) != 'H') {
+                            Bloc = "murdeplacable";
+                            plateauJeu.changeSymbol(getXEceMan, getYEceMan, "+Y", Bloc);
+                            Bloc = " ";
+                        }
+                    } else {
                         plateauJeu.changeSymbol(getXEceMan, getYEceMan, "+Y", Bloc);
-                        Bloc = " ";
                     }
-                } else {
-                    plateauJeu.changeSymbol(getXEceMan, getYEceMan, "+Y", Bloc);
                 }
+
+                break;
             }
 
-            break;
-        }
-    
-
-default: {
+            default: {
                 System.out.println("Veuillez réessayer / Déplacement impossible ! \n Appuyer sur z pour aller vers le haut; s vers le bas ; q vers la gauche et d vers lz droite");
             }
 
@@ -115,11 +114,11 @@ default: {
     }
 
     @Override
-        public void keyTyped(KeyEvent ke) {
+    public void keyTyped(KeyEvent ke) {
     }
 
     @Override
-        public void keyReleased(KeyEvent ke) {
+    public void keyReleased(KeyEvent ke) {
     }
 
 }

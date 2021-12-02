@@ -59,7 +59,7 @@ public class Plateau {
             case "-Y": {
                 if (Bloc == "murdeplacable") {
                     plateauJeu[x][y - 2] = plateauJeu[x][y - 1];
-                    plateauJeu[x][y - 1] = new Banquise(x, y - 1, 'G', 2);
+                    plateauJeu[x][y - 1] = new Banquise(x, y-1, 'G', 2);
 
                 }
                 if (plateauJeu[x][y - 1].getSymbole() == 'G') {
@@ -78,7 +78,7 @@ public class Plateau {
             case "+Y": {
                 if (Bloc == "murdeplacable") {
                     plateauJeu[x][y + 2] = plateauJeu[x][y + 1];
-                    plateauJeu[x][y + 1] = new Banquise(x, y + 1, 'G', 2);
+                    plateauJeu[x][y + 1] = new Banquise(x, y+1, 'G', 2);
 
                 }
                 if (plateauJeu[x][y + 1].getSymbole() == 'G') {
@@ -98,7 +98,7 @@ public class Plateau {
 
                 if (Bloc == "murdeplacable") {
                     plateauJeu[x - 2][y] = plateauJeu[x - 1][y];
-                    plateauJeu[x - 1][y] = new Banquise(x - 1, y, 'G', 2);
+                    plateauJeu[x - 1][y] = new Banquise(x-1, y, 'G', 2);
                 }
                 if (plateauJeu[x - 1][y].getSymbole() == 'G') {
                     plateauJeu[x][y].setEpaisse(false);
@@ -115,7 +115,7 @@ public class Plateau {
             case "+X": {
                 if (Bloc == "murdeplacable") {
                     plateauJeu[x + 2][y] = plateauJeu[x + 1][y];
-                    plateauJeu[x + 1][y] = new Banquise(x + 1, y, 'G', 2);
+                    plateauJeu[x + 1][y] = new Banquise(x+1, y, 'G', 2);
 
                 }
                 if (plateauJeu[x + 1][y].getSymbole() == 'G') {
@@ -134,7 +134,7 @@ public class Plateau {
         }
 
         if (plateauJeu[x][y].isEpaisse() == false) {
-            plateauJeu[x][y] = new Banquise(x, y, 'H', 2); // 2 --> score || a voir si ca crée r
+            plateauJeu[x][y] = new Banquise(x, y, 'H', 1); // 2 --> score || a voir si ca crée r
         } else if (plateauJeu[x][y].isEpaisse() == true) {
             plateauJeu[x][y] = new Banquise(x, y, 'G', 2);
         }

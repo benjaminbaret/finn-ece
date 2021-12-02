@@ -17,6 +17,7 @@ public class Plateau {
     private String Level;
     private CasePlateau plateauJeu[][] = new CasePlateau[HEIGHT][WIDTH];
     private int Xobjectif, Yobjectif;
+    private boolean dead = false;
 
     public char[][] getPlateau() {
         char[][] plateau = new char[HEIGHT][WIDTH];
@@ -52,14 +53,14 @@ public class Plateau {
         return 404;
     }
 
-    public void changeSymbol(int x, int y, String str, String Bloc) {
+    public void changeSymbol(int x, int y, String str, Boolean deplacer) {
 
         switch (str) {
 
             case "-Y": {
-                if (Bloc == "murdeplacable") {
+                if (deplacer) {
                     plateauJeu[x][y - 2] = plateauJeu[x][y - 1];
-                    plateauJeu[x][y - 1] = new Banquise(x, y - 1, 'G', 2);
+                    plateauJeu[x][y - 1] = new Banquise(x, y - 1, 'G', 1);
                 }
                 
                 if (plateauJeu[x][y - 1].getSymbole() == 'G') {
@@ -69,16 +70,16 @@ public class Plateau {
                 } else if (plateauJeu[x][y - 1].getSymbole() == 'D') {
                     plateauJeu[x][y].setEpaisse(false);
                 } else {
-                    plateauJeu[x][y].setDead(true);
+                    dead = true;
                 }
                 plateauJeu[x][y - 1] = plateauJeu[x][y];
 
                 break;
             }
             case "+Y": {
-                if (Bloc == "murdeplacable") {
+                if (deplacer) {
                     plateauJeu[x][y + 2] = plateauJeu[x][y + 1];
-                    plateauJeu[x][y + 1] = new Banquise(x, y + 1, 'G', 2);
+                    plateauJeu[x][y + 1] = new Banquise(x, y+1, 'G', 1);
 
                 }
                 if (plateauJeu[x][y + 1].getSymbole() == 'G') {
@@ -88,7 +89,7 @@ public class Plateau {
                 } else if (plateauJeu[x][y + 1].getSymbole() == 'D') {
                     plateauJeu[x][y].setEpaisse(false);
                 } else {
-                    plateauJeu[x][y].setDead(true);
+                    dead = true;
                 }
 
                 plateauJeu[x][y + 1] = plateauJeu[x][y];
@@ -96,36 +97,36 @@ public class Plateau {
             }
             case "-X": {
 
-                if (Bloc == "murdeplacable") {
+                if (deplacer) {
                     plateauJeu[x - 2][y] = plateauJeu[x - 1][y];
-                    plateauJeu[x - 1][y] = new Banquise(x - 1, y, 'G', 2);
+                    plateauJeu[x - 1][y] = new Banquise(x-1, y, 'G', 1);
                 }
                 if (plateauJeu[x - 1][y].getSymbole() == 'G') {
                     plateauJeu[x][y].setEpaisse(false);
                 } else if (plateauJeu[x - 1][y].getSymbole() == 'E') {
                     plateauJeu[x][y].setEpaisse(true);
-                } else if (plateauJeu[x][y - 1].getSymbole() == 'D') {
+                } else if (plateauJeu[x - 1][y].getSymbole() == 'D') {
                     plateauJeu[x][y].setEpaisse(false);
                 } else {
-                    plateauJeu[x][y].setDead(true);
+                    dead = true;
                 }
                 plateauJeu[x - 1][y] = plateauJeu[x][y];
                 break;
             }
             case "+X": {
-                if (Bloc == "murdeplacable") {
+                if (deplacer) {
                     plateauJeu[x + 2][y] = plateauJeu[x + 1][y];
-                    plateauJeu[x + 1][y] = new Banquise(x + 1, y, 'G', 2);
+                    plateauJeu[x + 1][y] = new Banquise(x+1, y, 'G', 1);
 
                 }
                 if (plateauJeu[x + 1][y].getSymbole() == 'G') {
                     plateauJeu[x][y].setEpaisse(false);
                 } else if (plateauJeu[x + 1][y].getSymbole() == 'E') {
                     plateauJeu[x][y].setEpaisse(true);
-                } else if (plateauJeu[x][y + 1].getSymbole() == 'D') {
+                } else if (plateauJeu[x + 1][y].getSymbole() == 'D') {
                     plateauJeu[x][y].setEpaisse(false);
                 } else {
-                    plateauJeu[x][y].setDead(true);
+                   dead = true;
                 }
                 plateauJeu[x + 1][y] = plateauJeu[x][y];
                 break;
@@ -134,7 +135,7 @@ public class Plateau {
         }
 
         if (plateauJeu[x][y].isEpaisse() == false) {
-            plateauJeu[x][y] = new Banquise(x, y, 'H', 2); // 2 --> score || a voir si ca crée r
+            plateauJeu[x][y] = new Banquise(x, y, 'H', 1); // 2 --> score || a voir si ca crée r
         } else if (plateauJeu[x][y].isEpaisse() == true) {
             plateauJeu[x][y] = new Banquise(x, y, 'G', 2);
         }
@@ -142,11 +143,14 @@ public class Plateau {
     }
 
     public String endGame() {
+        
         if ((Xobjectif == getXSymbol('P')) && (Yobjectif == getYSymbol('P'))) {
             return "GAGNE";
-        } else if (plateauJeu[this.getXSymbol('P')][this.getYSymbol('P')].isDead()) {
+        } else if (dead) {
+           
             return "PERDU";
         }
+        
         return "";
     }
 

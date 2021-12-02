@@ -22,7 +22,7 @@ public class EceMan extends ObjetPlateau {
         this.name_eceman = "";
         this.level_eceman = 1;
         this.score = 0;
-        this.epaisse = false;
+        this.epaisse = true;
         this.dead = false;
         
 
@@ -33,6 +33,7 @@ public class EceMan extends ObjetPlateau {
         this.name_eceman = name;
         this.level_eceman = level;
         this.score = score;
+        this.dead = true;
     }
 
 // Getter

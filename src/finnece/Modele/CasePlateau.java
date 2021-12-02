@@ -20,9 +20,8 @@ public class CasePlateau {
         position_x = x;
         position_y = y;
         symbole = s;
-
         epaisse = false;
-
+        dead = false;
     }
 
     public int getPositionX() {

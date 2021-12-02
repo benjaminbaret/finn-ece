@@ -174,17 +174,18 @@ public class moteurJeu {
         AffichageConsole afficher = new AffichageConsole(map);
 
         while (!endPartie) {
-            afficher.afficherMap(Personnage);
+            
             map = controleur.modifierMap(Personnage, clavier);
             afficher.update(map);
+            afficher.afficherMap(Personnage);
             Thread.sleep(100);
-            
+
             if(map.endGame()=="PERDU"){
                 endPartie=true;
                 Personnage.setScore(0);
             }
 
-            if (map.endGame()=="GAGNE") {
+            else if (map.endGame()=="GAGNE") {
                 endPartie = true;
                 Personnage.setScore(10);
                 Personnage.setLevel();

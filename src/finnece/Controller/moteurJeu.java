@@ -178,6 +178,7 @@ public class moteurJeu {
             map = controleur.modifierMap(Personnage, clavier);
             afficher.update(map);
             Thread.sleep(100);
+            
             if(map.endGame()=="PERDU"){
                 endPartie=true;
                 Personnage.setScore(0);

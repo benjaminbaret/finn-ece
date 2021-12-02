@@ -14,29 +14,24 @@ public class ObjetPlateau extends CasePlateau {
     public ObjetPlateau(int x, int y, char s) {
         super(x, y, s);
     }
-    
-    
-    
-    
-    public void applyProperty(String myString){ //mystring == po
-      
+
+    public void applyProperty(String myString) { //mystring == po
+
     }
-    
-    public void setEpaisse(){
-        
+
+    //Permet l'héridité
+
+    public void setEpaisse() {
     }
-    
-    public boolean isEpaisse(){
+
+    public void setDead(boolean is) {
+    }
+
+    public boolean isDead() {
         return false;
     }
-    
-    public void setDead(boolean is){
-       
-    }
-    
-  
-    public boolean isDead(){
+    public boolean isEpaisse() {
         return false;
     }
-    
+
 }

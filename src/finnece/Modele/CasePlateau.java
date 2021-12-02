@@ -10,53 +10,55 @@ package finnece.Modele;
  * @author benja
  */
 public class CasePlateau {
-    
-    private int position_x, position_y; 
+
+    private int position_x, position_y;
     private char symbole;
     private boolean epaisse;
     private boolean dead;
-    
-    CasePlateau(int x, int y, char s){
+
+    CasePlateau(int x, int y, char s) {
         position_x = x;
         position_y = y;
         symbole = s;
+
         epaisse = false;
+
     }
-    
-    public int getPositionX(){
+
+    public int getPositionX() {
         return position_x;
     }
-    
-    public int getPositionY(){
+
+    public int getPositionY() {
         return position_y;
     }
-    
-    public void setPositionX(int x){
+
+    public void setPositionX(int x) {
         position_x = x;
     }
-    
-    public void setPositionY(int y){
+
+    public void setPositionY(int y) {
         position_y = y;
     }
-    
-    public char getSymbole(){
+
+    public char getSymbole() {
         return symbole;
     }
-    public void setEpaisse(boolean is){
+
+    public void setEpaisse(boolean is) {
         epaisse = is;
     }
-    
-    public boolean isEpaisse(){
+
+    public boolean isEpaisse() {
         return epaisse;
     }
-    
-    public void setDead(boolean is){
+
+    public void setDead(boolean is) {
         dead = is;
     }
-    
-  
-    public boolean isDead(){
+
+    public boolean isDead() {
         return dead;
     }
-    
+
 }

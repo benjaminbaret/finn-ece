@@ -46,7 +46,11 @@ public class AffichageConsole {
                     System.out.print(ANSI_BLACK + var + " " + ANSI_RESET);
                 } else if (var == 'O') {
                     System.out.print(ANSI_YELLOW + var + " " + ANSI_RESET);
-                } else {
+                } else if (var == 'D') {
+                    System.out.print(ANSI_GREEN + var + " " + ANSI_RESET);
+                }else if (var == 'H') {
+                    System.out.print(ANSI_PURPLE + var + " " + ANSI_RESET);
+                }else {
                     System.out.print(ANSI_BLUE + var + " " + ANSI_RESET);
                 }
 

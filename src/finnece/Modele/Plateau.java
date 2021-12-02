@@ -135,7 +135,7 @@ public class Plateau {
         }
 
         if (plateauJeu[x][y].isEpaisse() == false) {
-            plateauJeu[x][y] = new Banquise(x, y, 'H', 1); // 2 --> score || a voir si ca crée r
+            plateauJeu[x][y] = new Banquise(x, y, 'H', 2); // 2 --> score || a voir si ca crée r
         } else if (plateauJeu[x][y].isEpaisse() == true) {
             plateauJeu[x][y] = new Banquise(x, y, 'G', 2);
         }

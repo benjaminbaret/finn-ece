@@ -48,7 +48,7 @@ public class ControleurPlateau implements KeyListener {
             case KeyEvent.VK_UP: { //déplacement vers le haut
                 if ((plateauJeu.getPlateau()[getXEceMan - 1][getYEceMan]) != 'M') {
                     if ((plateauJeu.getPlateau()[getXEceMan - 1][getYEceMan]) == 'D') {
-                        if ((plateauJeu.getPlateau()[getXEceMan - 2][getYEceMan]) != 'M') {
+                        if ((plateauJeu.getPlateau()[getXEceMan - 2][getYEceMan]) != 'M' && (plateauJeu.getPlateau()[getXEceMan - 2][getYEceMan]) != 'D') {
                             Bloc = "murdeplacable";
                             plateauJeu.changeSymbol(getXEceMan, getYEceMan, "-X", Bloc);
                             Bloc = " ";
@@ -62,7 +62,7 @@ public class ControleurPlateau implements KeyListener {
             case KeyEvent.VK_DOWN: { //déplacement vers le bas
                 if ((plateauJeu.getPlateau()[getXEceMan + 1][getYEceMan]) != 'M') {
                     if ((plateauJeu.getPlateau()[getXEceMan + 1][getYEceMan]) == 'D') {
-                        if ((plateauJeu.getPlateau()[getXEceMan + 2][getYEceMan]) != 'M') {
+                        if ((plateauJeu.getPlateau()[getXEceMan + 2][getYEceMan]) != 'M' && (plateauJeu.getPlateau()[getXEceMan + 2][getYEceMan]) != 'D') {
                             Bloc = "murdeplacable";
                             plateauJeu.changeSymbol(getXEceMan, getYEceMan, "+X", Bloc);
                             Bloc = " ";
@@ -77,7 +77,7 @@ public class ControleurPlateau implements KeyListener {
                 if ((plateauJeu.getPlateau()[getXEceMan][getYEceMan - 1]) != 'M') { // ajouter les vérifs pour ne pas être sur pointeur null ... 
 
                     if ((plateauJeu.getPlateau()[getXEceMan][getYEceMan - 1]) == 'D') {
-                        if ((plateauJeu.getPlateau()[getXEceMan][getYEceMan - 2]) != 'M') {
+                        if ((plateauJeu.getPlateau()[getXEceMan][getYEceMan - 2]) != 'M' && (plateauJeu.getPlateau()[getXEceMan][getYEceMan - 2]) != 'D') {
                             Bloc = "murdeplacable";
                             plateauJeu.changeSymbol(getXEceMan, getYEceMan, "-Y", Bloc);
                             Bloc = " ";
@@ -92,7 +92,7 @@ public class ControleurPlateau implements KeyListener {
 
                 if ((plateauJeu.getPlateau()[getXEceMan][getYEceMan + 1]) != 'M') {
                     if ((plateauJeu.getPlateau()[getXEceMan][getYEceMan + 1]) == 'D') {
-                        if ((plateauJeu.getPlateau()[getXEceMan][getYEceMan + 2]) != 'M') {
+                        if ((plateauJeu.getPlateau()[getXEceMan][getYEceMan + 2]) != 'M' && (plateauJeu.getPlateau()[getXEceMan][getYEceMan + 2]) != 'D') {
                         Bloc = "murdeplacable";
                         plateauJeu.changeSymbol(getXEceMan, getYEceMan, "+Y", Bloc);
                         Bloc = " ";

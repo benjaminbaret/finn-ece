@@ -67,7 +67,7 @@ public class Plateau {
                 } else if (plateauJeu[x][y - 1].getSymbole() == 'E') {
                     plateauJeu[x][y].setEpaisse(true);
                 } else if (plateauJeu[x][y - 1].getSymbole() == 'D') {
-                    plateauJeu[x][y].setEpaisse(true);
+                    plateauJeu[x][y].setEpaisse(false);
                 } else {
                     plateauJeu[x][y].setDead(true);
                 }
@@ -86,7 +86,7 @@ public class Plateau {
                 } else if (plateauJeu[x][y + 1].getSymbole() == 'E') {
                     plateauJeu[x][y].setEpaisse(true);
                 } else if (plateauJeu[x][y + 1].getSymbole() == 'D') {
-                    plateauJeu[x][y].setEpaisse(true);
+                    plateauJeu[x][y].setEpaisse(false);
                 } else {
                     plateauJeu[x][y].setDead(true);
                 }
@@ -105,7 +105,7 @@ public class Plateau {
                 } else if (plateauJeu[x - 1][y].getSymbole() == 'E') {
                     plateauJeu[x][y].setEpaisse(true);
                 } else if (plateauJeu[x][y - 1].getSymbole() == 'D') {
-                    plateauJeu[x][y].setEpaisse(true);
+                    plateauJeu[x][y].setEpaisse(false);
                 } else {
                     plateauJeu[x][y].setDead(true);
                 }
@@ -123,7 +123,7 @@ public class Plateau {
                 } else if (plateauJeu[x + 1][y].getSymbole() == 'E') {
                     plateauJeu[x][y].setEpaisse(true);
                 } else if (plateauJeu[x][y + 1].getSymbole() == 'D') {
-                    plateauJeu[x][y].setEpaisse(true);
+                    plateauJeu[x][y].setEpaisse(false);
                 } else {
                     plateauJeu[x][y].setDead(true);
                 }
@@ -160,6 +160,8 @@ public class Plateau {
                 Level = "./Sauvegarde/level1.txt";
             } else if (lvl == 2) {
                 Level = "./Sauvegarde/level2.txt";
+            }else if (lvl == 3) {
+                Level = "./Sauvegarde/level3.txt";
             }
 
             FileInputStream filemap = new FileInputStream(Level);

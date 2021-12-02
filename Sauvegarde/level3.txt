@@ -1,0 +1,15 @@
+X X X X X X X X X X X X X X X X X X X
+M M M M M M M M X X X X X X X X X X X
+M P G G G G G M M M M M M M X X X X X
+M G G G G G G D G M O E E M X X X X X
+M G G D D D D D G M M M E M X X X X X
+M G G D G G G G G E E E E M X X X X X
+M M M M M M M D D D D M M M M M X X X
+X X X X X X M G G G G D G G G M X X X
+X X X X X X M G G G G D G G G M X X X
+X X X X X X M M M M M M M M M M X X X
+X X X X X X X X X X X X X X X X X X X
+X X X X X X X X X X X X X X X X X X X
+X X X X X X X X X X X X X X X X X X X
+X X X X X X X X X X X X X X X X X X X
+X X X X X X X X X X X X X X X X X X X

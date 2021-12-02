@@ -38,8 +38,10 @@ public class AffichageConsole {
 
                 char var = plateau.getPlateau()[i][j];
 
-                if (var == 'G') {
+                if (var == 'E') {
                     System.out.print(ANSI_CYAN + var + " " + ANSI_RESET);
+                } else if (var == 'G') {
+                    System.out.print(ANSI_BLUE + var + " " + ANSI_RESET);
                 } else if (var == 'P') {
                     System.out.print(ANSI_RED + var + " " + ANSI_RESET);
                 } else if (var == 'X') {
@@ -48,10 +50,10 @@ public class AffichageConsole {
                     System.out.print(ANSI_YELLOW + var + " " + ANSI_RESET);
                 } else if (var == 'D') {
                     System.out.print(ANSI_GREEN + var + " " + ANSI_RESET);
-                }else if (var == 'H') {
+                } else if (var == 'H') {
                     System.out.print(ANSI_PURPLE + var + " " + ANSI_RESET);
-                }else {
-                    System.out.print(ANSI_BLUE + var + " " + ANSI_RESET);
+                } else if (var == 'M') {
+                    System.out.print(ANSI_WHITE + var + " " + ANSI_RESET);
                 }
 
             }

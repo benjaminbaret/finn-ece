@@ -32,13 +32,8 @@ public class ControleurPlateau implements KeyListener{
 
     }
 
-    public Plateau modifierMap(EceMan Personnage, Scanner clavier) {
-
     
-        
-        
-                
-              
+    public Plateau modifierMap(EceMan Personnage, Scanner clavier){          
 
 
         //System.out.print("Déplacement : ");

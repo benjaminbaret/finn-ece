@@ -19,7 +19,24 @@ public class ObjetPlateau extends CasePlateau {
     
     
     public void applyProperty(String myString){ //mystring == po
+      
+    }
+    
+    public void setEpaisse(){
+        
+    }
+    
+    public boolean isEpaisse(){
+        return false;
+    }
+    
+    public void setDead(boolean is){
        
+    }
+    
+  
+    public boolean isDead(){
+        return false;
     }
     
 }

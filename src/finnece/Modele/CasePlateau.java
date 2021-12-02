@@ -13,11 +13,14 @@ public class CasePlateau {
     
     private int position_x, position_y; 
     private char symbole;
+    private boolean epaisse;
+    private boolean dead;
     
     CasePlateau(int x, int y, char s){
         position_x = x;
         position_y = y;
         symbole = s;
+        epaisse = false;
     }
     
     public int getPositionX(){
@@ -38,6 +41,22 @@ public class CasePlateau {
     
     public char getSymbole(){
         return symbole;
+    }
+    public void setEpaisse(boolean is){
+        epaisse = is;
+    }
+    
+    public boolean isEpaisse(){
+        return epaisse;
+    }
+    
+    public void setDead(boolean is){
+        dead = is;
+    }
+    
+  
+    public boolean isDead(){
+        return dead;
     }
     
 }

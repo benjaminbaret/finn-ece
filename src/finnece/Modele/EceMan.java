@@ -14,12 +14,17 @@ public class EceMan extends ObjetPlateau {
     private String name_eceman;
     private int level_eceman;
     private int score;
+    private boolean epaisse;
+    private boolean dead = false;
 
     EceMan() {
         super(0, 0, 'P');
         this.name_eceman = "";
         this.level_eceman = 1;
         this.score = 0;
+        this.epaisse = false;
+        this.dead = false;
+        
 
     }
 
@@ -58,5 +63,23 @@ public class EceMan extends ObjetPlateau {
     
     public void setLevel() {
         this.level_eceman ++;
+    }
+    
+    public void setEpaisse(boolean is){
+        epaisse = is;
+    }
+    
+  
+    public boolean isEpaisse(){
+        return epaisse;
+    }
+    
+    public void setDead(boolean is){
+        dead = is;
+    }
+    
+  
+    public boolean isDead(){
+        return dead;
     }
 }

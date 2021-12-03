@@ -1,5 +1,3 @@
-Pierre 2 10 
-Jean 2 13 
-A 4 30 
-ZZ 3 20 
-AZERT 2 10 
+AZ 2 10 
+AZERTY 2 10 
+AZERTY 3 20 

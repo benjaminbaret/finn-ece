@@ -18,6 +18,8 @@ public class Plateau {
     private CasePlateau plateauJeu[][] = new CasePlateau[HEIGHT][WIDTH];
     private int Xobjectif, Yobjectif;
     private boolean dead = false;
+    private boolean wasEpaisse = true;
+    
 
     public char[][] getPlateau() {
         char[][] plateau = new char[HEIGHT][WIDTH];
@@ -53,22 +55,26 @@ public class Plateau {
         return 404;
     }
 
+
     public void changeSymbol(int x, int y, String str, Boolean deplacer) {
+        
+        boolean nextEpaisse = false;
+        
+        
 
         switch (str) {
-
             case "-Y": {
                 if (deplacer) {
                     plateauJeu[x][y - 2] = plateauJeu[x][y - 1];
                     plateauJeu[x][y - 1] = new Banquise(x, y - 1, 'G', 1);
                 }
-                
+
                 if (plateauJeu[x][y - 1].getSymbole() == 'G') {
-                    plateauJeu[x][y].setEpaisse(false);
+                nextEpaisse = false;
                 } else if (plateauJeu[x][y - 1].getSymbole() == 'E') {
-                    plateauJeu[x][y].setEpaisse(true);
+                    nextEpaisse = true;
                 } else if (plateauJeu[x][y - 1].getSymbole() == 'D') {
-                    plateauJeu[x][y].setEpaisse(false);
+                    nextEpaisse = false;
                 } else {
                     dead = true;
                 }
@@ -79,15 +85,16 @@ public class Plateau {
             case "+Y": {
                 if (deplacer) {
                     plateauJeu[x][y + 2] = plateauJeu[x][y + 1];
-                    plateauJeu[x][y + 1] = new Banquise(x, y+1, 'G', 1);
+                    plateauJeu[x][y + 1] = new Banquise(x, y + 1, 'G', 1);
 
                 }
                 if (plateauJeu[x][y + 1].getSymbole() == 'G') {
-                    plateauJeu[x][y].setEpaisse(false);
+                    nextEpaisse = false;
                 } else if (plateauJeu[x][y + 1].getSymbole() == 'E') {
-                    plateauJeu[x][y].setEpaisse(true);
+
+                    nextEpaisse = true;
                 } else if (plateauJeu[x][y + 1].getSymbole() == 'D') {
-                    plateauJeu[x][y].setEpaisse(false);
+                    nextEpaisse = false;
                 } else {
                     dead = true;
                 }
@@ -99,14 +106,14 @@ public class Plateau {
 
                 if (deplacer) {
                     plateauJeu[x - 2][y] = plateauJeu[x - 1][y];
-                    plateauJeu[x - 1][y] = new Banquise(x-1, y, 'G', 1);
+                    plateauJeu[x - 1][y] = new Banquise(x - 1, y, 'G', 1);
                 }
                 if (plateauJeu[x - 1][y].getSymbole() == 'G') {
-                    plateauJeu[x][y].setEpaisse(false);
+                    nextEpaisse = false;                                                                                                                                                                                                                                                       
                 } else if (plateauJeu[x - 1][y].getSymbole() == 'E') {
-                    plateauJeu[x][y].setEpaisse(true);
+                    nextEpaisse = true;
                 } else if (plateauJeu[x - 1][y].getSymbole() == 'D') {
-                    plateauJeu[x][y].setEpaisse(false);
+                    nextEpaisse = false;
                 } else {
                     dead = true;
                 }
@@ -116,45 +123,65 @@ public class Plateau {
             case "+X": {
                 if (deplacer) {
                     plateauJeu[x + 2][y] = plateauJeu[x + 1][y];
-                    plateauJeu[x + 1][y] = new Banquise(x+1, y, 'G', 1);
+                    plateauJeu[x + 1][y] = new Banquise(x + 1, y, 'G', 1);
 
                 }
                 if (plateauJeu[x + 1][y].getSymbole() == 'G') {
-                    plateauJeu[x][y].setEpaisse(false);
+                    
+                    nextEpaisse = false;
                 } else if (plateauJeu[x + 1][y].getSymbole() == 'E') {
-                    plateauJeu[x][y].setEpaisse(true);
+                  
+                    
+                    nextEpaisse = true;
                 } else if (plateauJeu[x + 1][y].getSymbole() == 'D') {
-                    plateauJeu[x][y].setEpaisse(false);
+                    
+                    nextEpaisse = false;
                 } else {
-                   dead = true;
+                    dead = true;
                 }
+                
                 plateauJeu[x + 1][y] = plateauJeu[x][y];
                 break;
             }
 
         }
-
-        if (plateauJeu[x][y].isEpaisse() == false) {
+        
+        
+        if (this.wasEpaisse == false) {
             plateauJeu[x][y] = new Banquise(x, y, 'H', 2); // 2 --> score || a voir si ca crée r
-        } else if (plateauJeu[x][y].isEpaisse() == true) {
+        } else if (this.wasEpaisse == true) {
             plateauJeu[x][y] = new Banquise(x, y, 'G', 2);
         }
+        
+        this.wasEpaisse = nextEpaisse;
+        
+        
+        
+       
 
     }
 
     public String endGame() {
-        
-        if ((Xobjectif == getXSymbol('P')) && (Yobjectif == getYSymbol('P'))) {
+        boolean endgame = true;
+        for (int i = 0; i < HEIGHT; i++) {
+            for (int j = 0; j < WIDTH; j++) {
+                if (plateauJeu[i][j].getSymbole() == 'G' || plateauJeu[i][j].getSymbole() == 'E'){
+                    endgame = false;
+                }
+            }
+        }
+
+        if ((Xobjectif == getXSymbol('P')) && (Yobjectif == getYSymbol('P')) && endgame == true) {
             return "GAGNE";
         } else if (dead) {
-           
+
             return "PERDU";
         }
-        
+
         return "";
     }
-
     // SAUVEGARDE & CHARGEMENT
+
     public void loadMap(int lvl) {
 
         String lignemap = new String();
@@ -164,7 +191,7 @@ public class Plateau {
                 Level = "./Sauvegarde/level1.txt";
             } else if (lvl == 2) {
                 Level = "./Sauvegarde/level2.txt";
-            }else if (lvl == 3) {
+            } else if (lvl == 3) {
                 Level = "./Sauvegarde/level3.txt";
             }
 

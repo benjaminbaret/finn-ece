@@ -34,6 +34,8 @@ public class ControleurPlateau implements KeyListener {
 
         //System.out.print("Déplacement : ");
         //  toucheDeplacement = clavier.next().charAt(0);
+        
+        
         return plateauJeu;
     }
 

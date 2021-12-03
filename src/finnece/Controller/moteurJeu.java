@@ -174,18 +174,16 @@ public class moteurJeu {
         AffichageConsole afficher = new AffichageConsole(map);
 
         while (!endPartie) {
-            
+
             map = controleur.modifierMap(Personnage, clavier);
             afficher.update(map);
             afficher.afficherMap(Personnage);
             Thread.sleep(100);
 
-            if(map.endGame()=="PERDU"){
-                endPartie=true;
+            if (map.endGame() == "PERDU") {
+                endPartie = true;
                 Personnage.setScore(0);
-            }
-
-            else if (map.endGame()=="GAGNE") {
+            } else if (map.endGame() == "GAGNE") {
                 endPartie = true;
                 Personnage.setScore(10);
                 Personnage.setLevel();
@@ -197,15 +195,17 @@ public class moteurJeu {
         newPlayer.add(String.valueOf(Personnage.getLevel()));
         newPlayer.add(String.valueOf(Personnage.getScore()));
         infoSavePlayer.add(newPlayer);
+        map.sauvegardeScore(infoSavePlayer);
 
         afficher.afficherMap(Personnage);
         if (Personnage.getNiveau() != level) {
-            System.out.println("Bravo niveau complété");
-            map.sauvegardeScore(infoSavePlayer);
+            System.out.println("\n\n Good Game \nLevel completed");
+        } else {
+            System.out.println("\n\n Game Over \nTry again");
 
         }
         f.dispose();
-        
+
         return infoSavePlayer;
     }
 

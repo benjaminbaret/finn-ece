@@ -1,3 +1,4 @@
 Pierre 2 10 
 Jean 5 43 
-A 5 40 
+AZERTY 1 0 
+AZERTY 5 40 

@@ -38,6 +38,11 @@ public class ControleurPlateau implements KeyListener {
         
         return plateauJeu;
     }
+    
+   
+    
+    
+    
 
     @Override
     public void keyPressed(KeyEvent ke) {
@@ -79,6 +84,7 @@ public class ControleurPlateau implements KeyListener {
                         plateauJeu.changeSymbol(getXEceMan, getYEceMan, "+X", deplacer);
                     }
                 }
+            
                 break;
             }
             case KeyEvent.VK_LEFT: {//déplacement vers la gauche

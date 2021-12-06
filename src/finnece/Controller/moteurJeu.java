@@ -187,9 +187,10 @@ public class moteurJeu {
         while (!endPartie) {
 
             map = controleur.modifierMap(Personnage, clavier);
+            map.edit();
             afficher.update(map);
             afficher.afficherMap(Personnage);
-            Thread.sleep(100);
+            Thread.sleep(300);
 
             if (map.endGame() == "PERDU") {
                 endPartie = true;

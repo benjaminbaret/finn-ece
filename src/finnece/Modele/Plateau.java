@@ -19,16 +19,18 @@ public class Plateau {
     private int Xobjectif, Yobjectif, Xtunnel, Ytunnel, XtunnelSortie, YtunnelSortie;
     private boolean dead = false;
     private boolean wasEpaisse = true;
-    
-   
-    
+    private String sensEnnemi = "droite";
 
 
+    /*public Plateau(int level){
+        level = level;
+    }*/
     public char[][] getPlateau() {
         char[][] plateau = new char[HEIGHT][WIDTH];
         for (int i = 0; i < HEIGHT; i++) {
             for (int j = 0; j < WIDTH; j++) {
                 plateau[i][j] = plateauJeu[i][j].getSymbole();
+
    
                     if (plateauJeu[i][j].getSymbole() == 'T') {
                         Xtunnel = i;
@@ -39,6 +41,7 @@ public class Plateau {
                         YtunnelSortie = j;
                     
                 }
+
             }
         }
         return plateau;
@@ -67,13 +70,14 @@ public class Plateau {
 
         return 404;
     }
-
+    
 
     public void changeSymbol(int x, int y, String str, Boolean deplacer) {
 
-        
         boolean nextEpaisse = false;
-                
+        
+        
+
         switch (str) {
             case "-Y": {
                 if (deplacer) {
@@ -82,7 +86,7 @@ public class Plateau {
                 }
 
                 if (plateauJeu[x][y - 1].getSymbole() == 'G') {
-                nextEpaisse = false;
+                    nextEpaisse = false;
                     nextEpaisse = false;
                 } else if (plateauJeu[x][y - 1].getSymbole() == 'E') {
                     nextEpaisse = true;
@@ -123,7 +127,7 @@ public class Plateau {
                 }
                 if (plateauJeu[x - 1][y].getSymbole() == 'G') {
 
-                    nextEpaisse = false;                                                                                                                                                                                                                                                       
+                    nextEpaisse = false;
 
                 } else if (plateauJeu[x - 1][y].getSymbole() == 'E') {
                     nextEpaisse = true;
@@ -145,11 +149,10 @@ public class Plateau {
 
                     nextEpaisse = false;
                 } else if (plateauJeu[x + 1][y].getSymbole() == 'E') {
-                  
-                    
+
                     nextEpaisse = true;
                 } else if (plateauJeu[x + 1][y].getSymbole() == 'D') {
-          
+
                     nextEpaisse = false;
                 } else if (plateauJeu[x + 1][y].getSymbole() == 'E') {
                     nextEpaisse = true;
@@ -158,28 +161,25 @@ public class Plateau {
                 } else {
                     dead = true;
                 }
-                
+
                 plateauJeu[x + 1][y] = plateauJeu[x][y];
                 break;
             }
 
         }
-        
-        
-         if (this.wasEpaisse == false || level == 1) {
+
+        if (this.wasEpaisse == false || level == 1 || level == 5) {
             plateauJeu[x][y] = new Banquise(x, y, 'H', 2); // 2 --> score || a voir si ca crée r
-        } 
-        else if (this.wasEpaisse == true) 
+        } else if (this.wasEpaisse == true) {
             plateauJeu[x][y] = new Banquise(x, y, 'G', 2);
-    
-            
-        
-        
+        }
+
+        this.wasEpaisse = nextEpaisse;
+
+
         this.wasEpaisse = nextEpaisse;
         
-        
-        
- 
+
 
     }
 
@@ -208,6 +208,33 @@ public class Plateau {
         }
         return "";
     }
+    
+    public void edit(){
+        int a = getYSymbol('Y');
+        if(a>4 && a<13){
+            if(sensEnnemi == "droite"){
+              plateauJeu[getXSymbol('Y')][a+1] = plateauJeu[getXSymbol('Y')][a];
+            plateauJeu[getXSymbol('Y')][a] = new Banquise(getXSymbol('Y'), a, 'G', 2); 
+            } else{
+                  plateauJeu[getXSymbol('Y')][a-1] = plateauJeu[getXSymbol('Y')][a];
+            plateauJeu[getXSymbol('Y')][a] = new Banquise(getXSymbol('Y'), a, 'G', 2);  
+            }
+            
+        } else{
+            if(sensEnnemi == "droite"){
+                sensEnnemi = "gauche";
+                plateauJeu[getXSymbol('Y')][a-1] = plateauJeu[getXSymbol('Y')][a];
+            plateauJeu[getXSymbol('Y')][a] = new Banquise(getXSymbol('Y'), a, 'G', 2); 
+            }else {
+                plateauJeu[getXSymbol('Y')][a+1] = plateauJeu[getXSymbol('Y')][a];
+            plateauJeu[getXSymbol('Y')][a] = new Banquise(getXSymbol('Y'), a, 'G', 2); 
+                sensEnnemi = "droite";
+            }
+        }
+        
+        
+      
+    }
     // SAUVEGARDE & CHARGEMENT
 
     public void loadMap(int lvl) {
@@ -224,7 +251,10 @@ public class Plateau {
                 Level = "./Sauvegarde/level3.txt";
             } else if (lvl == 4) {
                 Level = "./Sauvegarde/level4.txt";
-            }else if (lvl == 5) {
+
+            }
+            else if (lvl == 5) {
+
                 Level = "./Sauvegarde/level5.txt";
             }
 
@@ -261,12 +291,22 @@ public class Plateau {
                             break;
                         case "S":
                             plateauJeu[i][j] = new ObjetPlateau(i, j, 'S');
+                            XtunnelSortie = i;
+                            YtunnelSortie = j;
                             break;
                         case "T":
                             plateauJeu[i][j] = new ObjetPlateau(i, j, 'T');
+                            Xtunnel = i;
+                            Ytunnel = j;
                             break;
                         case "P":
                             plateauJeu[i][j] = new EceMan();
+                            break;
+                        case "H":
+                            plateauJeu[i][j] = new ObjetPlateau(i, j, 'H');
+                            break;
+                        case "Y":
+                            plateauJeu[i][j] = new ObjetPlateau(i, j, 'Y');
                             break;
 
                     }

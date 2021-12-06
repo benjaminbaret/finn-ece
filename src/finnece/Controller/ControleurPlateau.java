@@ -34,6 +34,8 @@ public class ControleurPlateau implements KeyListener {
 
         //System.out.print("Déplacement : ");
         //  toucheDeplacement = clavier.next().charAt(0);
+        
+        
         return plateauJeu;
     }
 
@@ -101,7 +103,8 @@ public class ControleurPlateau implements KeyListener {
 
                 if ((plateauJeu.getPlateau()[getXEceMan][getYEceMan + 1]) != 'M') {
                     if ((plateauJeu.getPlateau()[getXEceMan][getYEceMan + 1]) == 'D') {
-                        if ((plateauJeu.getPlateau()[getXEceMan][getYEceMan + 2]) != 'M' && (plateauJeu.getPlateau()[getXEceMan][getYEceMan + 2]) != 'D' && (plateauJeu.getPlateau()[getXEceMan][getYEceMan + 2]) != 'H') {
+             
+                     if ((plateauJeu.getPlateau()[getXEceMan][getYEceMan + 2]) != 'M' && (plateauJeu.getPlateau()[getXEceMan][getYEceMan + 2]) != 'D' && (plateauJeu.getPlateau()[getXEceMan][getYEceMan + 2]) != 'H') {
                             deplacer = true;
                             plateauJeu.changeSymbol(getXEceMan, getYEceMan, "+Y", deplacer);
                             deplacer = false;

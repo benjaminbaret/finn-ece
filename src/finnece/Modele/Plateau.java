@@ -19,6 +19,12 @@ public class Plateau {
     private int Xobjectif, Yobjectif, Xtunnel, Ytunnel, XtunnelSortie, YtunnelSortie;
     private boolean dead = false;
     private boolean wasEpaisse = true;
+    
+    public Plateau(int level){
+        level = level;
+    }
+    
+
 
     public char[][] getPlateau() {
         char[][] plateau = new char[HEIGHT][WIDTH];
@@ -64,11 +70,13 @@ public class Plateau {
         return 404;
     }
 
+
     public void changeSymbol(int x, int y, String str, Boolean deplacer) {
+
+        
         boolean nextEpaisse = false;
-
+                
         switch (str) {
-
             case "-Y": {
                 if (deplacer) {
                     plateauJeu[x][y - 2] = plateauJeu[x][y - 1];
@@ -76,6 +84,7 @@ public class Plateau {
                 }
 
                 if (plateauJeu[x][y - 1].getSymbole() == 'G') {
+                nextEpaisse = false;
                     nextEpaisse = false;
                 } else if (plateauJeu[x][y - 1].getSymbole() == 'E') {
                     nextEpaisse = true;
@@ -97,6 +106,7 @@ public class Plateau {
                 if (plateauJeu[x][y + 1].getSymbole() == 'G') {
                     nextEpaisse = false;
                 } else if (plateauJeu[x][y + 1].getSymbole() == 'E') {
+
                     nextEpaisse = true;
                 } else if (plateauJeu[x][y + 1].getSymbole() == 'D') {
                     nextEpaisse = false;
@@ -114,7 +124,9 @@ public class Plateau {
                     plateauJeu[x - 1][y] = new Banquise(x - 1, y, 'G', 1);
                 }
                 if (plateauJeu[x - 1][y].getSymbole() == 'G') {
-                    nextEpaisse = false;
+
+                    nextEpaisse = false;                                                                                                                                                                                                                                                       
+
                 } else if (plateauJeu[x - 1][y].getSymbole() == 'E') {
                     nextEpaisse = true;
                 } else if (plateauJeu[x - 1][y].getSymbole() == 'D') {
@@ -132,6 +144,14 @@ public class Plateau {
 
                 }
                 if (plateauJeu[x + 1][y].getSymbole() == 'G') {
+
+                    nextEpaisse = false;
+                } else if (plateauJeu[x + 1][y].getSymbole() == 'E') {
+                  
+                    
+                    nextEpaisse = true;
+                } else if (plateauJeu[x + 1][y].getSymbole() == 'D') {
+          
                     nextEpaisse = false;
                 } else if (plateauJeu[x + 1][y].getSymbole() == 'E') {
                     nextEpaisse = true;
@@ -140,17 +160,28 @@ public class Plateau {
                 } else {
                     dead = true;
                 }
+                
                 plateauJeu[x + 1][y] = plateauJeu[x][y];
                 break;
             }
 
         }
-
-        if (this.wasEpaisse == false) {
+        
+        
+         if (this.wasEpaisse == false || level == 1) {
             plateauJeu[x][y] = new Banquise(x, y, 'H', 2); // 2 --> score || a voir si ca crée r
-        } else if (this.wasEpaisse == true) {
+        } 
+        else if (this.wasEpaisse == true) 
             plateauJeu[x][y] = new Banquise(x, y, 'G', 2);
-        }
+    
+            
+        
+        
+        this.wasEpaisse = nextEpaisse;
+        
+        
+        
+       
 
         this.wasEpaisse = nextEpaisse;
 

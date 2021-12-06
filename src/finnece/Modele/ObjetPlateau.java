@@ -33,5 +33,9 @@ public class ObjetPlateau extends CasePlateau {
     public boolean isEpaisse() {
         return false;
     }
+    
+    public int getLevel(){
+        return 1;
+    }
 
 }

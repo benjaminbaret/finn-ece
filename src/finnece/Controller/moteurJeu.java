@@ -162,7 +162,7 @@ public class moteurJeu {
         List<String> newPlayer = new ArrayList<String>();
 
         boolean endPartie = false;
-        Plateau map = new Plateau(level);
+        Plateau map = new Plateau();
         map.loadMap(level);
 
         EceMan Personnage = new EceMan(name, level, map.getXSymbol('P'), map.getYSymbol('P'), score);

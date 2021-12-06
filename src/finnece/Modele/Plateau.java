@@ -20,9 +20,7 @@ public class Plateau {
     private boolean dead = false;
     private boolean wasEpaisse = true;
     
-    public Plateau(int level){
-        level = level;
-    }
+   
     
 
 
@@ -31,7 +29,7 @@ public class Plateau {
         for (int i = 0; i < HEIGHT; i++) {
             for (int j = 0; j < WIDTH; j++) {
                 plateau[i][j] = plateauJeu[i][j].getSymbole();
-                if (level == 4) {
+   
                     if (plateauJeu[i][j].getSymbole() == 'T') {
                         Xtunnel = i;
                         Ytunnel = j;
@@ -39,7 +37,7 @@ public class Plateau {
                     if (plateauJeu[i][j].getSymbole() == 'S') {
                         XtunnelSortie = i;
                         YtunnelSortie = j;
-                    }
+                    
                 }
             }
         }
@@ -181,9 +179,7 @@ public class Plateau {
         
         
         
-       
-
-        this.wasEpaisse = nextEpaisse;
+ 
 
     }
 
@@ -228,6 +224,8 @@ public class Plateau {
                 Level = "./Sauvegarde/level3.txt";
             } else if (lvl == 4) {
                 Level = "./Sauvegarde/level4.txt";
+            }else if (lvl == 5) {
+                Level = "./Sauvegarde/level5.txt";
             }
 
             level = lvl;

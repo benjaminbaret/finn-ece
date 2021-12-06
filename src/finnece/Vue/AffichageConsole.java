@@ -54,6 +54,9 @@ public class AffichageConsole {
                     System.out.print(ANSI_PURPLE + var + " " + ANSI_RESET);
                 } else if (var == 'M') {
                     System.out.print(ANSI_WHITE + var + " " + ANSI_RESET);
+                } else if (var == 'T' || var == 'S') {
+                    System.out.print(ANSI_CYAN + var + " " + ANSI_RESET);
+
                 }
 
             }
@@ -81,5 +84,4 @@ public class AffichageConsole {
     public static final String ANSI_PURPLE = "\u001B[35m";
     public static final String ANSI_CYAN = "\u001B[36m";
     public static final String ANSI_WHITE = "\u001B[37m";
-
 }

@@ -43,6 +43,16 @@ public class moteurJeu {
                     + "- 3 : Reprise de la dernière partie\n    "
                     + "- 4 : Affichage des scores\n    "
                     + "- 5 : Quitter\n");
+            
+            /*SwingUtilities.invokeLater(() -> {
+                    //On crée une nouvelle instance de notre JWindow
+                    MonInterface window = new MonInterface();
+                    window.setVisible(true);//On la rend visible
+                });
+ 
+		try { 
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {}*/
 
             while (!touche) {
                 choix = clavier.next().charAt(0);
@@ -102,6 +112,7 @@ public class moteurJeu {
 
                 case '5': {//quitter
                     end = true;
+                    //Sytem.exit(0);!
                     break;
                 }
                 default:
@@ -199,9 +210,9 @@ public class moteurJeu {
 
         afficher.afficherMap(Personnage);
         if (Personnage.getNiveau() != level) {
-            System.out.println("\n\n Good Game \nLevel completed");
+            System.out.println("\n\nGood Game \nLevel completed");
         } else {
-            System.out.println("\n\n Game Over \nTry again");
+            System.out.println("\n\nGame Over \nTry again");
 
         }
         f.dispose();

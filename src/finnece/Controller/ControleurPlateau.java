@@ -55,6 +55,9 @@ public class ControleurPlateau implements KeyListener {
                             plateauJeu.changeSymbol(getXEceMan, getYEceMan, "-X", deplacer);
                             deplacer = false;
                         }
+                    } else if ((plateauJeu.getPlateau()[getXEceMan - 1][getYEceMan]) == 'T') {
+                        plateauJeu.tunnel(getXEceMan, getYEceMan);
+
                     } else {
                         plateauJeu.changeSymbol(getXEceMan, getYEceMan, "-X", deplacer);
                     }
@@ -69,6 +72,9 @@ public class ControleurPlateau implements KeyListener {
                             plateauJeu.changeSymbol(getXEceMan, getYEceMan, "+X", deplacer);
                             deplacer = false;
                         }
+                    } else if ((plateauJeu.getPlateau()[getXEceMan + 1][getYEceMan]) == 'T') {
+                        plateauJeu.tunnel(getXEceMan, getYEceMan);
+
                     } else {
                         plateauJeu.changeSymbol(getXEceMan, getYEceMan, "+X", deplacer);
                     }
@@ -84,6 +90,9 @@ public class ControleurPlateau implements KeyListener {
                             plateauJeu.changeSymbol(getXEceMan, getYEceMan, "-Y", deplacer);
                             deplacer = false;
                         }
+                    } else if ((plateauJeu.getPlateau()[getXEceMan][getYEceMan - 1]) == 'T') {
+                        plateauJeu.tunnel(getXEceMan, getYEceMan);
+
                     } else {
                         plateauJeu.changeSymbol(getXEceMan, getYEceMan, "-Y", deplacer);
                     }
@@ -94,11 +103,15 @@ public class ControleurPlateau implements KeyListener {
 
                 if ((plateauJeu.getPlateau()[getXEceMan][getYEceMan + 1]) != 'M') {
                     if ((plateauJeu.getPlateau()[getXEceMan][getYEceMan + 1]) == 'D') {
-                        if ((plateauJeu.getPlateau()[getXEceMan][getYEceMan + 2]) != 'M' && (plateauJeu.getPlateau()[getXEceMan][getYEceMan + 2]) != 'D' && (plateauJeu.getPlateau()[getXEceMan][getYEceMan + 2]) != 'H') {
+             
+                     if ((plateauJeu.getPlateau()[getXEceMan][getYEceMan + 2]) != 'M' && (plateauJeu.getPlateau()[getXEceMan][getYEceMan + 2]) != 'D' && (plateauJeu.getPlateau()[getXEceMan][getYEceMan + 2]) != 'H') {
                             deplacer = true;
                             plateauJeu.changeSymbol(getXEceMan, getYEceMan, "+Y", deplacer);
                             deplacer = false;
                         }
+                    } else if ((plateauJeu.getPlateau()[getXEceMan][getYEceMan + 1]) == 'T') {
+                        plateauJeu.tunnel(getXEceMan, getYEceMan);
+
                     } else {
                         plateauJeu.changeSymbol(getXEceMan, getYEceMan, "+Y", deplacer);
                     }
@@ -110,7 +123,6 @@ public class ControleurPlateau implements KeyListener {
             default: {
                 System.out.println("Veuillez réessayer / Déplacement impossible ! \n Appuyer sur z pour aller vers le haut; s vers le bas ; q vers la gauche et d vers lz droite");
             }
-
         }
 
     }

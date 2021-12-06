@@ -59,5 +59,9 @@ public class CasePlateau {
     public boolean isDead() {
         return dead;
     }
+    
+       public int getLevel(){
+        return 1;
+    }
 
 }

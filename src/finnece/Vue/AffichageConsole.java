@@ -65,16 +65,22 @@ public class AffichageConsole {
         //System.out.print(ANSI_RESET);
     }
 
-    public void cls() {
+   public static void cls() {
 
         try {
-            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            final String os = System.getProperty("os.name");
+            if (os.contains("Windows")) {
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            } else {
+                Runtime.getRuntime().exec("clear");
+            }
         } catch (Exception e) {
             System.out.println(e);
         }
 
     }
 
+    //POUR LA COULEUR
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_BLACK = "\u001B[30m";
     public static final String ANSI_RED = "\u001B[31m";

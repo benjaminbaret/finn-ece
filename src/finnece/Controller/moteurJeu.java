@@ -187,7 +187,7 @@ public class moteurJeu {
         while (!endPartie) {
 
             map = controleur.modifierMap(Personnage, clavier);
-            map.edit();
+            map.editEnnemi();
             afficher.update(map);
             afficher.afficherMap(Personnage);
             Thread.sleep(300);

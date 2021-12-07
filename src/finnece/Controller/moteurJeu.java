@@ -13,9 +13,11 @@ import java.awt.Frame;
 import java.awt.Label;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Timer;
 
 /**
  *
@@ -43,7 +45,7 @@ public class moteurJeu {
                     + "- 3 : Reprise de la dernière partie\n    "
                     + "- 4 : Affichage des scores\n    "
                     + "- 5 : Quitter\n");
-            
+
             /*SwingUtilities.invokeLater(() -> {
                     //On crée une nouvelle instance de notre JWindow
                     MonInterface window = new MonInterface();
@@ -53,7 +55,6 @@ public class moteurJeu {
 		try { 
 			Thread.sleep(5000);
 		} catch (InterruptedException e) {}*/
-
             while (!touche) {
                 choix = clavier.next().charAt(0);
                 touche = checkToucheValide(choix);
@@ -183,13 +184,23 @@ public class moteurJeu {
         ////////////
 
         AffichageConsole afficher = new AffichageConsole(map);
+        
+        Instant start = Instant.now();
+        Instant current = Instant.now();
+        long duree = 0;
 
         while (!endPartie) {
-
+            current = Instant.now();
+            duree = current.getEpochSecond()-start.getEpochSecond();
+           
             map = controleur.modifierMap(Personnage, clavier);
-            map.editEnnemi();
+            if(Personnage.getLevel()==5){
+                map.editEnnemi();
+            }
+            
             afficher.update(map);
             afficher.afficherMap(Personnage);
+            System.out.println("Temps écoulé : " +  duree + "secondes");
             Thread.sleep(300);
 
             if (map.endGame() == "PERDU") {
@@ -197,7 +208,13 @@ public class moteurJeu {
                 Personnage.setScore(0);
             } else if (map.endGame() == "GAGNE") {
                 endPartie = true;
-                Personnage.setScore(10);
+                if(duree > 60){
+                    Personnage.setScore(Personnage.getScore()+3);
+                } else if (30<duree && duree<=60){
+                    Personnage.setScore(Personnage.getScore()+5);
+                }else {
+                    Personnage.setScore(Personnage.getScore()+8);
+                }
                 Personnage.setLevel();
             }
         }

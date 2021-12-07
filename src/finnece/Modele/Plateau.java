@@ -205,11 +205,15 @@ public class Plateau {
                 if (plateauJeu[getXSymbol('Y')][a + 1].getSymbole() != 'P') {
                     plateauJeu[getXSymbol('Y')][a + 1] = plateauJeu[getXSymbol('Y')][a];
                     plateauJeu[getXSymbol('Y')][a] = new Banquise(getXSymbol('Y'), a, 'G', 2);
+                }else {
+                    dead = true;
                 }
             } else {
                 if (plateauJeu[getXSymbol('Y')][a - 1].getSymbole() != 'P') {
                     plateauJeu[getXSymbol('Y')][a - 1] = plateauJeu[getXSymbol('Y')][a];
                     plateauJeu[getXSymbol('Y')][a] = new Banquise(getXSymbol('Y'), a, 'G', 2);
+                }else {
+                    dead = true;
                 }
             }
 
@@ -219,12 +223,16 @@ public class Plateau {
                 if (plateauJeu[getXSymbol('Y')][a - 1].getSymbole() != 'P') {
                     plateauJeu[getXSymbol('Y')][a - 1] = plateauJeu[getXSymbol('Y')][a];
                     plateauJeu[getXSymbol('Y')][a] = new Banquise(getXSymbol('Y'), a, 'G', 2);
+                }else {
+                    dead = true;
                 }
             } else {
                 if (plateauJeu[getXSymbol('Y')][a + 1].getSymbole() != 'P') {
                     plateauJeu[getXSymbol('Y')][a + 1] = plateauJeu[getXSymbol('Y')][a];
                     plateauJeu[getXSymbol('Y')][a] = new Banquise(getXSymbol('Y'), a, 'G', 2);
                     sensEnnemi = "droite";
+                }else {
+                    dead = true;
                 }
             }
         }

@@ -8,6 +8,7 @@ package finnece.Controller;
 import finnece.Modele.EceMan;
 import finnece.Modele.Plateau;
 import finnece.Vue.AffichageConsole;
+import finnece.Vue.MonInterface;
 import java.awt.FlowLayout;
 import java.awt.Frame;
 import java.awt.Label;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Timer;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -46,7 +48,7 @@ public class moteurJeu {
                     + "- 4 : Affichage des scores\n    "
                     + "- 5 : Quitter\n");
 
-            /*SwingUtilities.invokeLater(() -> {
+            SwingUtilities.invokeLater(() -> {
                     //On crée une nouvelle instance de notre JWindow
                     MonInterface window = new MonInterface();
                     window.setVisible(true);//On la rend visible
@@ -54,7 +56,7 @@ public class moteurJeu {
  
 		try { 
 			Thread.sleep(5000);
-		} catch (InterruptedException e) {}*/
+		} catch (InterruptedException e) {}
             while (!touche) {
                 choix = clavier.next().charAt(0);
                 touche = checkToucheValide(choix);
@@ -113,7 +115,7 @@ public class moteurJeu {
 
                 case '5': {//quitter
                     end = true;
-                    //Sytem.exit(0);!
+                    System.exit(0);
                     break;
                 }
                 default:

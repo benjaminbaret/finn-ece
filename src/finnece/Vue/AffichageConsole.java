@@ -32,7 +32,7 @@ public class AffichageConsole {
         cls();
 
         System.out.println("\n            Name : " + Personnage.getNom());
-        System.out.println("\nScore : " + Personnage.getScore() + "                  Niveau : " + Personnage.getLevel());
+        System.out.println("\nScore : " + Personnage.getScore() + "                Niveau : " + Personnage.getLevel());
         for (int i = 0; i < Plateau.HEIGHT; i++) {
             for (int j = 0; j < Plateau.WIDTH; j++) {
 

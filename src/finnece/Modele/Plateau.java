@@ -20,6 +20,8 @@ public class Plateau {
     private boolean dead = false;
     private boolean wasEpaisse = true;
     private String sensEnnemi = "droite";
+    private CasePlateau caseTempoless1 = new Banquise(0, 0, ' ', 0);
+    private CasePlateau caseTempoless2 = new Banquise(0, 0, ' ', 0);
 
 
     /*public Plateau(int level){
@@ -200,19 +202,30 @@ public class Plateau {
 
     public void editEnnemi() {
         int a = getYSymbol('Y');
-        if (a > 4 && a < 13) {
+        if (4 < a && a < 9) {
             if (sensEnnemi == "droite") {
                 if (plateauJeu[getXSymbol('Y')][a + 1].getSymbole() != 'P') {
+                    caseTempoless2 = plateauJeu[getXSymbol('Y')][a + 1];
+                    if (plateauJeu[getXSymbol('Y')][a + 1].getSymbole() == 'M') {
+                        caseTempoless2 = plateauJeu[getXSymbol('Y')][a];
+                    }
                     plateauJeu[getXSymbol('Y')][a + 1] = plateauJeu[getXSymbol('Y')][a];
-                    plateauJeu[getXSymbol('Y')][a] = new Banquise(getXSymbol('Y'), a, 'G', 2);
-                }else {
+                    plateauJeu[getXSymbol('Y')][a] = caseTempoless1;
+                    caseTempoless1 = caseTempoless2;
+                } else {
                     dead = true;
                 }
             } else {
                 if (plateauJeu[getXSymbol('Y')][a - 1].getSymbole() != 'P') {
+                    caseTempoless2 = plateauJeu[getXSymbol('Y')][a - 1];
+                    if (plateauJeu[getXSymbol('Y')][a - 1].getSymbole() == 'M') {
+                        caseTempoless2 = plateauJeu[getXSymbol('Y')][a];
+                    }
                     plateauJeu[getXSymbol('Y')][a - 1] = plateauJeu[getXSymbol('Y')][a];
-                    plateauJeu[getXSymbol('Y')][a] = new Banquise(getXSymbol('Y'), a, 'G', 2);
-                }else {
+                    plateauJeu[getXSymbol('Y')][a] = caseTempoless1;
+                    caseTempoless1 = caseTempoless2;
+
+                } else {
                     dead = true;
                 }
             }
@@ -222,16 +235,16 @@ public class Plateau {
                 sensEnnemi = "gauche";
                 if (plateauJeu[getXSymbol('Y')][a - 1].getSymbole() != 'P') {
                     plateauJeu[getXSymbol('Y')][a - 1] = plateauJeu[getXSymbol('Y')][a];
-                    plateauJeu[getXSymbol('Y')][a] = new Banquise(getXSymbol('Y'), a, 'G', 2);
-                }else {
+                    plateauJeu[getXSymbol('Y')][a] = caseTempoless1;
+                } else {
                     dead = true;
                 }
             } else {
                 if (plateauJeu[getXSymbol('Y')][a + 1].getSymbole() != 'P') {
                     plateauJeu[getXSymbol('Y')][a + 1] = plateauJeu[getXSymbol('Y')][a];
-                    plateauJeu[getXSymbol('Y')][a] = new Banquise(getXSymbol('Y'), a, 'G', 2);
+                    plateauJeu[getXSymbol('Y')][a] = caseTempoless1;
                     sensEnnemi = "droite";
-                }else {
+                } else {
                     dead = true;
                 }
             }

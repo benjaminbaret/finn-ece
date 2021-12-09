@@ -175,7 +175,8 @@ public class Plateau {
         this.wasEpaisse = nextEpaisse;
 
     }
-
+    
+    //passage de la case T(entrée) à S(sortie)
     public void tunnel(int x, int y) {
         plateauJeu[XtunnelSortie][YtunnelSortie] = plateauJeu[x][y];
         plateauJeu[x][y] = new ObjetPlateau(x, y, 'H');
@@ -190,8 +191,6 @@ public class Plateau {
                 }
             }
         }
-        // A FAIRE : Tunnel --> t = entrée & S = sortie
-
         if (((Xobjectif == getXSymbol('P')) && (Yobjectif == getYSymbol('P')) && endgame == true)) {
             return "GAGNE";
         } else if (dead || (getXSymbol('P') == getXSymbol('Y') && getYSymbol('P') == getYSymbol('Y'))) {
@@ -200,6 +199,7 @@ public class Plateau {
         return "";
     }
 
+    //deplacement ennemie sur la map
     public void editEnnemi() {
         int a = getYSymbol('Y');
         if (4 < a && a < 9) {

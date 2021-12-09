@@ -5,14 +5,10 @@
  */
 package finnece.Controller;
 
-import finnece.Modele.Banquise;
 import finnece.Modele.EceMan;
 import finnece.Modele.Plateau;
 
 import java.util.Scanner;
-import java.awt.FlowLayout;
-import java.awt.Frame;
-import java.awt.Label;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -32,18 +28,11 @@ public class ControleurPlateau implements KeyListener {
 
     public Plateau modifierMap(EceMan Personnage, Scanner clavier) {
 
-        //System.out.print("Déplacement : ");
-        //  toucheDeplacement = clavier.next().charAt(0);
-        
-        
         return plateauJeu;
     }
     
-   
     
-    
-    
-
+    //Touche de déplacement
     @Override
     public void keyPressed(KeyEvent ke) {
 

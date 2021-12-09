@@ -17,7 +17,6 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.Timer;
 
 /**
  *
@@ -33,7 +32,6 @@ public class moteurJeu {
         clavier = new Scanner(System.in);
 
         List<List<String>> infoSavePlayer = new ArrayList<List<String>>();
-        List<String> tempoInfo = new ArrayList<String>();
 
         while (!end) {
             infoSavePlayer = fileSavePlayer(); //chargement des infos depuis le fichier .txt de sauvegarde
@@ -78,7 +76,10 @@ public class moteurJeu {
                 }
                 case '3': {//reprise partie sauvegardée
 
-                    int numberPlayer = infoSavePlayer.size();
+                    affichagescore(infoSavePlayer);
+                    System.out.print("Pour quel joueur voulez-vous reprendre la partie :  ");
+
+                    int numberPlayer = clavier.nextInt();
                     numberPlayer--;
                     String name = infoSavePlayer.get(numberPlayer).get(0);
                     String levelString = infoSavePlayer.get(numberPlayer).get(1);
@@ -94,20 +95,7 @@ public class moteurJeu {
                 case '4': {//voir les scores
 
                     System.out.println("        Score :\n");
-
-                    for (int i = 0; i < infoSavePlayer.size(); i++) {
-                        for (int j = 0; j < infoSavePlayer.get(i).size(); j++) {
-                            if (j == 0) {
-                                System.out.print("Nom : ");
-                            } else if (j == 1) {
-                                System.out.print("   |   Level : ");
-                            } else {
-                                System.out.print("   |   Score : ");
-                            }
-                            System.out.print(infoSavePlayer.get(i).get(j) + " ");
-                        }
-                        System.out.println("");
-                    }
+                    affichagescore(infoSavePlayer);
                     break;
                 }
 
@@ -122,6 +110,22 @@ public class moteurJeu {
         }
 
         clavier.close();
+    }
+
+    public static void affichagescore(List<List<String>> infoSavePlayer) {
+        for (int i = 0; i < infoSavePlayer.size(); i++) {
+            for (int j = 0; j < infoSavePlayer.get(i).size(); j++) {
+                if (j == 0) {
+                    System.out.print("Nom : ");
+                } else if (j == 1) {
+                    System.out.print("   |   Level : ");
+                } else {
+                    System.out.print("   |   Score : ");
+                }
+                System.out.print(infoSavePlayer.get(i).get(j) + " ");
+            }
+            System.out.println("");
+        }
     }
 
     //LOAD FILE SAVE
@@ -169,7 +173,6 @@ public class moteurJeu {
         EceMan Personnage = new EceMan(name, level, map.getXSymbol('P'), map.getYSymbol('P'), score);
 
         /////////////
-        char toucheDeplacement;
         Frame f = new Frame("Demo");
         f.setLayout(new FlowLayout());
         f.setSize(200, 200);
@@ -184,38 +187,42 @@ public class moteurJeu {
         ////////////
 
         AffichageConsole afficher = new AffichageConsole(map);
-        
+
         Instant start = Instant.now();
         Instant current = Instant.now();
         long duree = 0;
 
         while (!endPartie) {
             current = Instant.now();
-            duree = current.getEpochSecond()-start.getEpochSecond();
-           
+            duree = current.getEpochSecond() - start.getEpochSecond();
+
             map = controleur.modifierMap(Personnage, clavier);
-            if(Personnage.getLevel()==5){
+            if (Personnage.getLevel() == 5) {
                 map.editEnnemi();
             }
-            
+
             afficher.update(map);
             afficher.afficherMap(Personnage);
-            System.out.println("Temps écoulé : " +  duree + "secondes");
+            System.out.println("Temps écoulé : " + duree + " secondes");
             Thread.sleep(300);
 
             if (map.endGame() == "PERDU") {
                 endPartie = true;
                 Personnage.setScore(0);
+                System.out.println("\n\nGame Over \nTry again");
+
             } else if (map.endGame() == "GAGNE") {
                 endPartie = true;
-                if(duree > 60){
-                    Personnage.setScore(Personnage.getScore()+3);
-                } else if (30<duree && duree<=60){
-                    Personnage.setScore(Personnage.getScore()+5);
-                }else {
-                    Personnage.setScore(Personnage.getScore()+8);
+                if (duree > 60) {
+                    Personnage.setScore(Personnage.getScore() + 3);
+                } else if (30 < duree && duree <= 60) {
+                    Personnage.setScore(Personnage.getScore() + 5);
+                } else {
+                    Personnage.setScore(Personnage.getScore() + 8);
                 }
                 Personnage.setLevel();
+                System.out.println("\n\nGood Game \nLevel completed");
+
             }
         }
 
@@ -227,17 +234,12 @@ public class moteurJeu {
         map.sauvegardeScore(infoSavePlayer);
 
         afficher.afficherMap(Personnage);
-        if (Personnage.getNiveau() != level) {
-            System.out.println("\n\nGood Game \nLevel completed");
-        } else {
-            System.out.println("\n\nGame Over \nTry again");
-
-        }
         f.dispose();
 
         return infoSavePlayer;
     }
 
+    //Blinder choix
     public static boolean checkToucheValide(char choix) {
         if (choix == '1' || choix == '2' || choix == '3' || choix == '4' || choix == '5') {
             return true;
@@ -247,6 +249,7 @@ public class moteurJeu {
         }
     }
 
+    //Clear ecran
     public static void cls() {
 
         try {

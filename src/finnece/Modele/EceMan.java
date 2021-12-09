@@ -24,7 +24,6 @@ public class EceMan extends ObjetPlateau {
         this.score = 0;
         this.epaisse = true;
         this.dead = false;
-        
 
     }
 
@@ -36,7 +35,6 @@ public class EceMan extends ObjetPlateau {
         this.dead = true;
     }
 
-// Getter
     public String getNom() {
         return this.name_eceman;
     }
@@ -57,30 +55,31 @@ public class EceMan extends ObjetPlateau {
         return this.score;
     }
 
-    
     public void setScore(int score) {
-        this.score+=score;
+        this.score += score;
     }
-    
+
     public void setLevel() {
-        this.level_eceman ++;
+        if (this.level_eceman == 5) {
+
+        } else {
+            this.level_eceman++;
+        }
     }
-    
-    public void setEpaisse(boolean is){
+
+    public void setEpaisse(boolean is) {
         epaisse = is;
     }
-    
-  
-    public boolean isEpaisse(){
+
+    public boolean isEpaisse() {
         return epaisse;
     }
-    
-    public void setDead(boolean is){
+
+    public void setDead(boolean is) {
         dead = is;
     }
-    
-  
-    public boolean isDead(){
+
+    public boolean isDead() {
         return dead;
     }
 }

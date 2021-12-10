@@ -36,6 +36,19 @@ public class moteurJeu {
         while (!end) {
             infoSavePlayer = fileSavePlayer(); //chargement des infos depuis le fichier .txt de sauvegarde
             //cls();
+            System.out.println("                        __\n" +
+"                     -=(o '.\n" +
+"                        '.-.\\\n" +
+"                        /|  \\\\\n" +
+"                        '|  ||\n" +
+"                         _\\_):,_\n" +
+"    ______ _____ ______ __  __          _   _ \n" +
+"   |  ____/ ____|  ____|  \\/  |   /\\   | \\ | |\n" +
+"   | |__ | |    | |__  | \\  / |  /  \\  |  \\| |\n" +
+"   |  __|| |    |  __| | |\\/| | / /\\ \\ | . ` |\n" +
+"   | |___| |____| |____| |  | |/ ____ \\| |\\  |\n" +
+"   |______\\_____|______|_|  |_/_/    \\_\\_| \\_|\n" +
+"                                              ");
             System.out.println("               "
                     + "Menu :\n\n    "
                     + "- 1 : Affichage des règles\n    "

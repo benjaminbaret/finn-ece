@@ -8,6 +8,7 @@ package finnece.Controller;
 import finnece.Modele.EceMan;
 import finnece.Modele.Plateau;
 import finnece.Vue.AffichageConsole;
+import finnece.Vue.MonInterface;
 import java.awt.FlowLayout;
 import java.awt.Frame;
 import java.awt.Label;
@@ -17,6 +18,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -32,23 +34,34 @@ public class moteurJeu {
         clavier = new Scanner(System.in);
 
         List<List<String>> infoSavePlayer = new ArrayList<List<String>>();
+        
+        SwingUtilities.invokeLater(() -> {
+            //On crée une nouvelle instance de notre JWindow
+            MonInterface window = new MonInterface();
+            window.setVisible(true);//On la rend visible
+        });
 
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+        }
         while (!end) {
             infoSavePlayer = fileSavePlayer(); //chargement des infos depuis le fichier .txt de sauvegarde
+
             //cls();
-            System.out.println("                        __\n" +
-"                     -=(o '.\n" +
-"                        '.-.\\\n" +
-"                        /|  \\\\\n" +
-"                        '|  ||\n" +
-"                         _\\_):,_\n" +
-"    ______ _____ ______ __  __          _   _ \n" +
-"   |  ____/ ____|  ____|  \\/  |   /\\   | \\ | |\n" +
-"   | |__ | |    | |__  | \\  / |  /  \\  |  \\| |\n" +
-"   |  __|| |    |  __| | |\\/| | / /\\ \\ | . ` |\n" +
-"   | |___| |____| |____| |  | |/ ____ \\| |\\  |\n" +
-"   |______\\_____|______|_|  |_/_/    \\_\\_| \\_|\n" +
-"                                              ");
+            System.out.println("                        __\n"
+                    + "                     -=(o '.\n"
+                    + "                        '.-.\\\n"
+                    + "                        /|  \\\\\n"
+                    + "                        '|  ||\n"
+                    + "                         _\\_):,_\n"
+                    + "    ______ _____ ______ __  __          _   _ \n"
+                    + "   |  ____/ ____|  ____|  \\/  |   /\\   | \\ | |\n"
+                    + "   | |__ | |    | |__  | \\  / |  /  \\  |  \\| |\n"
+                    + "   |  __|| |    |  __| | |\\/| | / /\\ \\ | . ` |\n"
+                    + "   | |___| |____| |____| |  | |/ ____ \\| |\\  |\n"
+                    + "   |______\\_____|______|_|  |_/_/    \\_\\_| \\_|\n"
+                    + "                                              ");
             System.out.println("               "
                     + "Menu :\n\n    "
                     + "- 1 : Affichage des règles\n    "
@@ -57,15 +70,6 @@ public class moteurJeu {
                     + "- 4 : Affichage des scores\n    "
                     + "- 5 : Quitter\n");
 
-            /*SwingUtilities.invokeLater(() -> {
-                    //On crée une nouvelle instance de notre JWindow
-                    MonInterface window = new MonInterface();
-                    window.setVisible(true);//On la rend visible
-                });
- 
-		try { 
-			Thread.sleep(5000);
-		} catch (InterruptedException e) {}*/
             while (!touche) {
                 choix = clavier.next().charAt(0);
                 touche = checkToucheValide(choix);
@@ -75,7 +79,8 @@ public class moteurJeu {
             switch (choix) {
 
                 case '1': { //regle
-                    System.out.println("Mettre la fonction afficher regle ici !");
+                    regle();
+                    System.out.println("\n\n");
                     break;
                 }
                 case '2': {//nouvelle partie
@@ -123,6 +128,16 @@ public class moteurJeu {
         }
 
         clavier.close();
+    }
+    
+    public static void regle() {
+        System.out.println("Règles du jeu :\n"
+                + "\n- Vous incarnez Eceman, le personnage principale."
+                + "\n- Vous pouvez vous déplacer dans les 4 directions avec les flèches directives de votre clavier, \nen prenant soint d'appuier sur la petite fenêtre au lancement du jeu."
+                + "\n- Vous évoluerez dans un monde de glace fine (brisée), de glace épaisse (intacte), de murs, de tunnels, de divers objets et d'ennemis"
+                + "\n- Votre objectif est d'atteindre la glace, qui vous fera passer au niveau supérieur."
+                + "\n- Mais attention, une fois que vous marche sur une case, celle-ci se brise ou fond, \nvous empéchant ainsi de revenir en arriere et laissant apparaître de la lave.\n"
+                + "\nBonne chance et bon jeu !\n");
     }
 
     public static void affichagescore(List<List<String>> infoSavePlayer) {

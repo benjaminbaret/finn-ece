@@ -1,2 +1,3 @@
 Pierre 2 10 
+s 2 8 
 Jean 5 379 

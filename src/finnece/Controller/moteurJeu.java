@@ -27,14 +27,14 @@ import javax.swing.SwingUtilities;
 public class moteurJeu {
 
     public static void main(String[] args) throws InterruptedException {
-        boolean end = false, touche = false;
+        boolean end = false, touche = false, first = true;
         char choix = '0';
 
         Scanner clavier = null;
         clavier = new Scanner(System.in);
 
         List<List<String>> infoSavePlayer = new ArrayList<List<String>>();
-        
+
         SwingUtilities.invokeLater(() -> {
             //On crée une nouvelle instance de notre JWindow
             MonInterface window = new MonInterface();
@@ -47,8 +47,10 @@ public class moteurJeu {
         }
         while (!end) {
             infoSavePlayer = fileSavePlayer(); //chargement des infos depuis le fichier .txt de sauvegarde
-
-            //cls();
+            if (first) {
+                cls();
+                first = false;
+            }
             System.out.println("                        __\n"
                     + "                     -=(o '.\n"
                     + "                        '.-.\\\n"
@@ -129,7 +131,7 @@ public class moteurJeu {
 
         clavier.close();
     }
-    
+
     public static void regle() {
         System.out.println("Règles du jeu :\n"
                 + "\n- Vous incarnez Eceman, le personnage principale."
@@ -260,8 +262,15 @@ public class moteurJeu {
         newPlayer.add(String.valueOf(Personnage.getScore()));
         infoSavePlayer.add(newPlayer);
         map.sauvegardeScore(infoSavePlayer);
-
         afficher.afficherMap(Personnage);
+
+        if (map.endGame() == "PERDU") {
+            System.out.println("\n\nGame Over \nTry again");
+
+        } else if (map.endGame() == "GAGNE") {
+            System.out.println("\n\nGood Game \nLevel completed");
+
+        }
         f.dispose();
 
         return infoSavePlayer;

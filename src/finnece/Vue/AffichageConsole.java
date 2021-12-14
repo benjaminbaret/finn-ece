@@ -36,25 +36,25 @@ public class AffichageConsole {
                 char var = plateau.getPlateau()[i][j];
 
                 if (var == 'E') {
-                    System.out.print(ANSI_CYAN + var + " " + ANSI_RESET);
+                    System.out.print(ANSI_CYAN_BACKGROUND + var + " " + ANSI_RESET);
                 } else if (var == 'G') {
-                    System.out.print(ANSI_BLUE + var + " " + ANSI_RESET);
+                    System.out.print(ANSI_BLUE_BACKGROUND + var + " " + ANSI_RESET);
                 } else if (var == 'P') {
-                    System.out.print(ANSI_RED + var + " " + ANSI_RESET);
+                    System.out.print(ANSI_RED_BACKGROUND + var + " " + ANSI_RESET);
                 } else if (var == 'X') {
-                    System.out.print(ANSI_BLACK + var + " " + ANSI_RESET);
+                    System.out.print(ANSI_BLACK_BACKGROUND + ANSI_BLACK + var + " " + ANSI_RESET);
                 } else if (var == 'O') {
-                    System.out.print(ANSI_YELLOW + var + " " + ANSI_RESET);
+                    System.out.print(ANSI_YELLOW_BACKGROUND + var + " " + ANSI_RESET);
                 } else if (var == 'D') {
-                    System.out.print(ANSI_GREEN + var + " " + ANSI_RESET);
+                    System.out.print(ANSI_GREEN_BACKGROUND + var + " " + ANSI_RESET);
                 } else if (var == 'H') {
-                    System.out.print(ANSI_PURPLE + var + " " + ANSI_RESET);
+                    System.out.print(ANSI_PURPLE_BACKGROUND + var + " " + ANSI_RESET);
                 } else if (var == 'M') {
-                    System.out.print(ANSI_WHITE + var + " " + ANSI_RESET);
+                    System.out.print(ANSI_WHITE_BACKGROUND + var + " " + ANSI_RESET);
                 } else if (var == 'T' || var == 'S') {
-                    System.out.print(ANSI_CYAN + var + " " + ANSI_RESET);
-                }else if (var == 'Y') {
-                    System.out.print(ANSI_CYAN + var + " " + ANSI_RESET);
+                    System.out.print(ANSI_CYAN_BACKGROUND + var + " " + ANSI_RESET);
+                } else if (var == 'Y') {
+                    System.out.print(ANSI_CYAN_BACKGROUND + var + " " + ANSI_RESET);
 
                 }
 
@@ -64,7 +64,7 @@ public class AffichageConsole {
         //System.out.print(ANSI_RESET);
     }
 
-   public static void cls() {
+    public static void cls() {
 
         try {
             final String os = System.getProperty("os.name");
@@ -89,4 +89,13 @@ public class AffichageConsole {
     public static final String ANSI_PURPLE = "\u001B[35m";
     public static final String ANSI_CYAN = "\u001B[36m";
     public static final String ANSI_WHITE = "\u001B[37m";
+
+    public static final String ANSI_BLACK_BACKGROUND = "\u001B[40m";
+    public static final String ANSI_RED_BACKGROUND = "\u001B[41m";
+    public static final String ANSI_GREEN_BACKGROUND = "\u001B[42m";
+    public static final String ANSI_YELLOW_BACKGROUND = "\u001B[43m";
+    public static final String ANSI_BLUE_BACKGROUND = "\u001B[44m";
+    public static final String ANSI_PURPLE_BACKGROUND = "\u001B[45m";
+    public static final String ANSI_CYAN_BACKGROUND = "\u001B[46m";
+    public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
 }
